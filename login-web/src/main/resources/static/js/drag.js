@@ -54,6 +54,7 @@
             handler.unbind('mousedown');
             $(document).unbind('mousemove');
             $(document).unbind('mouseup');
+            $("#valid").val('true')
         }
     };
 })(jQuery);

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="copy">
+    <div style="padding-top:3px;">
+        <div class="col-sm-10" >
+            <ul class="nav nav-tabs">
+                <li role="presentation">
+                    <a href="#">首页</a>
+                </li>
+                <li role="presentation"><a href="#">用户模板</a></li>
+                <li role="presentation"><a href="#">公开模板</a></li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        用户中心<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="#">用户信息</a></li>
+                        <li role="presentation"><a href="#">修改密码</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-2">
+            <a href="#" class="href">
+                <img src="/image/default.png" width="40px" height="40px">
+                <span style="padding-left: 5px" >Joder</span>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package sringboot.lw.login;
+package springboot.lw.login;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

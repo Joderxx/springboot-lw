@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="springboot.lw.login.dao.UserMapper">
+    <resultMap id="User" type="springboot.lw.login.model.User">
+        <id property="id" column="id" />
+        <result property="account" column="account" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+    <insert id="save" parameterType="springboot.lw.login.model.User" useGeneratedKeys="true" keyProperty="id        ">
+        insert into user(`username`,`password`,`account`,`create_time`) values
+        (#{username},#{password},#{account},#{createTime})
+    </insert>
+
+    <update id="update" parameterType="springboot.lw.login.model.User">
+        update user set `id` = #{id}
+        <trim prefixOverrides=",">
+            <if test="user.username!=null">
+              , `username` = #{username}
+            </if>
+            <if test="user.password!=null">
+               , `password` = #{password}
+            </if>
+        </trim>
+
+    </update>
+    <update id="updatePassword">
+      update user set password=#{newPassword} where id-#{userId} and password=#{oldPassword}
+    </update>
+    <update id="updateUsername">
+      update user set username=#{newName} where id=#{userId}
+    </update>
+    <select id="getById" resultMap="User" parameterType="long">
+      select * from user where id = #{userId}
+    </select>
+    <select id="get" resultType="springboot.lw.login.model.User" parameterType="springboot.lw.login.model.User">
+      select * from user where password = #{password}
+        and (account = #{account} or username = #{username})
+    </select>
+    <select id="existUsername" resultType="java.lang.Integer">
+        select count(1) from user where username=#{username}
+    </select>
+    <select id="existAccount" resultType="java.lang.Integer">
+        select count(1) from user where account=#{account}
+    </select>
+</mapper>
