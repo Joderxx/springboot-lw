@@ -7,15 +7,28 @@
     <link href="/css/panel.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css" rel="stylesheet">
+    <script src="/js/templete.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/panel.js"></script>
 </head>
 <body style="background-color: rgba(211,211,211,0.5)">
     <div class="container-fluid">
         <div class="row" th:include="head :: copy"
-             style=" background-color: rgb(26,26,26,0.5);">
+             style=" background-color: rgba(26,26,26,0.5);">
 
         </div>
-        <div class="row" th:include="body :: copy">
 
+
+        <div class="row"  style="position: relative;">
+            <div th:include="body :: copy" >
+
+            </div>
+            <div id="operator-panel" class="col-sm-7 pre-scrollable" th:include="operator :: copy"
+                 style="position: absolute;float: left;background-color: white;
+                 padding-top: 5px;">
+
+            </div>
         </div>
     </div>
 </body>
