@@ -9,7 +9,7 @@ $(function () {
             $("#span-tips-show").tooltip('show');
         },500)
 
-    })
+    });
 
 
 
@@ -20,5 +20,29 @@ $(function () {
             $("#span-tips-show").tooltip('hide');
         },500);
 
-    })
-})
+    });
+
+    $("#send").on('click',function () {
+       var method = $("#method").val();
+       var url = $("#url").val();
+       if (method==''||url==''){
+           return;
+       }
+
+       $("#query-form").submit();
+       /*$.ajax({
+           type: 'post',
+           data: {url: url,method: method},
+           dataType: 'json',
+           url: '/user/crawl/doProcess',
+           success: function (data) {
+                console.log(
+                    data
+                )
+           },
+           error: function (error) {
+
+           }
+       })*/
+    });
+});

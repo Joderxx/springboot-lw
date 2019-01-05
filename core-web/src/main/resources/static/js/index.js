@@ -119,8 +119,17 @@ function delHeaderInfo(div) {
 
 
 function addCondition(btn) {
-    conditionNum++;
     var condition = document.getElementById("conditionBody");
-    condition.innerHTML += conditionTemp(conditionNum);
+    if (headerFlag){
+        condition.innerHTML= conditionTemp();
+        btn.innerHTML = '删除条件';
+        btn.className = "btn btn-danger"
+        headerFlag = false;
+    } else {
+        condition.innerHTML= '';
+        btn.className = "btn btn-primary"
+        btn.innerHTML = '添加条件';
+        headerFlag = true;
+    }
 
 }

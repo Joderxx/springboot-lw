@@ -5,17 +5,37 @@
     <div class="col-sm-12">
         <div class="row" style="float: left;" >
             <span id="span-tips-show" class="tooltip-toggle" data-toggle="tooltip"
-                  data-placement="bottom" title="点击拉出" >
+                  data-placement="bottom" title="点击拉出" style="position: fixed" >
                 <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"
                       style="font-size: 25px" ></span>
             </span>
         </div>
-        <div class="show">
-            <div class="col-sm-12" style="height: 270px"></div>
+
+        <div class="show" style="position: relative" th:if="${result==null}" >
+            <div id="span-div" class="col-sm-12" ></div>
             <div class="col-sm-offset-6">
             <span class="glyphicon glyphicon-home"
                   aria-hidden="true"
                   style="color: #b3abab;font-size:5em"></span>
+            </div>
+        </div>
+        <div class="show" style="margin-left: 50px" th:if="${result!=null}">
+            <div class="row">
+                <h4>结果</h4>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th ></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${result.body}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

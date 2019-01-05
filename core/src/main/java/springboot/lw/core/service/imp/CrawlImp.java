@@ -5,6 +5,7 @@ import org.jsoup.*;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import springboot.lw.core.exception.ParameterException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Service
+@PropertySource("classpath*: application.properties")
 public class CrawlImp implements Crawl {
 
     @Value("${request.method}")

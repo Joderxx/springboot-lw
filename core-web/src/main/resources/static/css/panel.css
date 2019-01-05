@@ -1,8 +1,3 @@
-.pre-scrollable {
-    max-height: 600px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
 .nav-tabs{
     border-bottom: rgba(0,0,0,0);
 }

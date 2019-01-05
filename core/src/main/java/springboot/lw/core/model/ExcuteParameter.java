@@ -51,7 +51,7 @@ public class ExcuteParameter {
     /**
      * 是否添加过滤条件
      */
-    private boolean filter;
+    private boolean filter = false;
 
     private List<String> selectConditions;
 

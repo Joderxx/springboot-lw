@@ -11,6 +11,7 @@
     <script src="/js/templete.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/panel.js"></script>
+    <script src="/js/init.js"></script>
 </head>
 <body style="background-color: rgba(211,211,211,0.5)">
     <div class="container-fluid">
@@ -24,12 +25,11 @@
             <div th:include="body :: copy" >
 
             </div>
-            <div id="operator-panel" class="col-sm-7 pre-scrollable" th:include="operator :: copy"
-                 style="position: absolute;float: left;background-color: white;
-                 padding-top: 5px;">
+            <div id="operator-panel" class="col-sm-6"  th:include="operator :: copy">
 
             </div>
         </div>
     </div>
 </body>
+
 </html>

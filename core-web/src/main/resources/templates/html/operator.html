@@ -10,30 +10,30 @@
 </head>
 <body>
 <div class="container-fluid" th:fragment="copy">
-    <div class="row" style="position: relative;overflow-y:auto;"> <!-- pre-scrollable -->
-        <div class="row" style="float: right;">
+    <div id="operator-body" class="row ">
+        <div class="row" style="float: right;padding-right: 70px">
 
             <span id="span-tips-hide" class="tooltip-toggle" data-toggle="tooltip"
-                  data-placement="bottom" title="点击隐藏" >
+                  data-placement="bottom" title="点击隐藏" style="position: fixed">
                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"
                       style="font-size: 25px" ></span>
             </span>
         </div>
-        <div>
-            <div class="row" >
+        <div style="padding-left:20px;padding-right:0px;">
+            <div class="row">
 
-                <form class="form-horizontal" style="padding-left: 20px">
+                <form class="form-horizontal" id="query-form" th:action="@{/user/crawl/doProcess}" method="post">
                     <div class="form-group">
                         <label for="method" class="col-sm-1 control-label">Method</label>
                         <div class="col-sm-2">
-                            <select class="form-control" id="method">
-                                <option value="GET">GET</option>
-                                <option value="POST">POST</option>
-                                <option value="PUT">PUT</option>
-                                <option value="DELETE">DELETE</option>
-                                <option value="HEAD">HEAD</option>
-                                <option value="OPTIONS">OPTIONS</option>
-                                <option value="PATCH">PATCH</option>
+                            <select class="form-control" id="method" name="method">
+                                <option value="GET" >GET</option>
+                                <option value="POST" th:selected="${method=='POST'}">POST</option>
+                                <option value="PUT" th:selected="${method=='PUT'}">PUT</option>
+                                <option value="DELETE" th:selected="${method=='DELETE'}">DELETE</option>
+                                <option value="HEAD" th:selected="${method=='HEAD'}">HEAD</option>
+                                <option value="OPTIONS" th:selected="${method=='OPTIONS'}">OPTIONS</option>
+                                <option value="PATCH" th:selected="${method=='PATCH'}">PATCH</option>
                             </select>
                         </div>
                     </div>
@@ -41,10 +41,10 @@
                         <label for="url" class="col-sm-1 control-label" >URL</label>
                         <div class="col-sm-10">
                             <div class=" input-group">
-                                <input type="text" class="form-control" id="url" placeholder="URL(例：127.0.0.1)" onkeyup="updateParameter(this)">
+                                <input type="text" style="font-size: 15px" class="form-control" id="url" name="url" placeholder="URL(例：127.0.0.1)" onkeyup="updateParameter(this)" th:value="${url }">
                                 <span class="input-group-btn">
-                                <button class="btn btn-primary" id="send" type="button">发送</button>
-                            </span>
+                            <button class="btn btn-primary" id="send" type="button">发送</button>
+                        </span>
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     <div class="panel-heading">条件</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-10 col-lg-offset-1 panel panel-success text-left">
+                            <div class="col-lg-8 col-lg-offset-2 panel panel-success text-left">
                                 <div class="panel-heading">
                                     条件
                                 </div>
@@ -85,7 +85,7 @@
                                     <div class="row">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="conditionType" class="col-sm-3 control-label">过滤类型</label>
+                                                <label for="conditionType" class="col-sm-2 control-label">过滤类型</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="conditionType">
                                                         <option value="ID">根据id过滤</option>
@@ -97,13 +97,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="condition" class="col-sm-3 control-label">条件</label>
+                                                <label for="condition" class="col-sm-2 control-label">条件</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" id="condition" placeholder="条件">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="condition" class="col-sm-3 control-label">选取条件</label>
+                                                <label for="condition" class="col-sm-2 control-label">选取条件</label>
                                                 <div class="col-sm-2">
                                                     <input type="radio" name="select" placeholder="条件" value="text">文本
                                                 </div>
@@ -114,12 +114,19 @@
                                                     <input type="text" id="attribute" placeholder="属性(例：name)">
                                                 </div>
                                             </div>
+
                                             <div class="form-group-sm">
-                                                <div class="col-sm-5"></div>
-                                                <div >
+                                                <div class="col-sm-6"></div>
+                                                <div>
+                                                    <button type="button" class="btn btn-success btn-xs">
+                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                    </button>
                                                     <button type="button" class="btn btn-danger btn-xs" value="2">
                                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                     </button>
+                                                </div>
+                                                <div >
+
                                                 </div>
                                             </div>
                                         </form>
