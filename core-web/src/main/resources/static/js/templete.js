@@ -100,16 +100,14 @@ function headerInfoTemp(index) {
 }
 
 function conditionTemp() {
-    var temp = "       <div class=\"row panel panel-info text-center\">\n" +
+    var temp = "<div class=\"row col-sm-12\">\n" +
+        "            <div class=\"row panel panel-info text-center\">\n" +
         "                <div class=\"panel-heading\">条件</div>\n" +
         "                <div class=\"panel-body\">\n" +
-        "                    <div id=\"childConditionBody\">\n" +
-        "\n" +
-        "                    </div>\n" +
         "                    <div class=\"row \">\n" +
         "                        <form class=\"form-horizontal\">\n" +
         "                            <div class=\"btn-group btn-group-sm\">\n" +
-        "                                <button type=\"button\" class=\"btn btn-success \">新增条件</button>\n" +
+        "                                <button type=\"button\" class=\"btn btn-success \">新增字段</button>\n" +
         "                            </div>\n" +
         "\n" +
         "                        </form>\n" +

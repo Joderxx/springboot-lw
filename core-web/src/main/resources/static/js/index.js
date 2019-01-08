@@ -1,7 +1,5 @@
 var headerFlag = true; //是否添加头部
 var proxyFlag = true;
-var conditionNum = 0; //主条件个数
-var childConditionNum = 0;
 var headerNum = 0;
 var  paramNum = 0;
 function updateParameter(input) {
@@ -132,4 +130,8 @@ function addCondition(btn) {
         headerFlag = true;
     }
 
+}
+
+function addChildCondition(btn) {
+    
 }

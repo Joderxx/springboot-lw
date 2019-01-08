@@ -66,16 +66,16 @@
             </form>
         </div>
         <br>
-        <div id="parameter" class="row col-sm-offset-1 col-sm-10">
+        <div id="parameter" class="row  col-sm-12">
 
         </div>
-        <div id="header" class="row col-sm-offset-1 col-sm-10">
+        <div id="header" class="row  col-sm-12">
 
         </div>
-        <div id="proxy" class="row col-sm-offset-1 col-sm-10">
+        <div id="proxy" class="row col-sm-12">
 
         </div>
-        <div id="conditionBody" class="row col-sm-offset-1 col-sm-10">
+        <div id="conditionBody" class="row col-sm-12">
         </div>
         <div class="row col-sm-offset-1 col-sm-10">
             <div class="row panel panel-info text-center">
@@ -87,47 +87,97 @@
                                 条件
                             </div>
                             <div class="panel-body">
-                                <div class="row">
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="conditionType" class="col-sm-2 control-label">过滤类型</label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="conditionType">
-                                                    <option value="ID">根据id过滤</option>
-                                                    <option value="CLASS">根据class样式过滤</option>
-                                                    <option value="TAG">根据tag标签过滤</option>
-                                                    <option value="REGEX">根据正则表达式过滤</option>
-                                                    <option value="XPATH">根据Xpath过滤</option>
-                                                </select>
+                                <div class="conditionBody">
+                                    <div class="row">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="conditionType" class="col-sm-2 control-label">过滤类型</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" >
+                                                        <option value="ID">根据id过滤</option>
+                                                        <option value="CLASS">根据class样式过滤</option>
+                                                        <option value="TAG">根据tag标签过滤</option>
+                                                        <option value="REGEX">根据正则表达式过滤</option>
+                                                        <option value="XPATH">根据Xpath过滤</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="condition" class="col-sm-2 control-label">条件</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="condition" placeholder="条件">
+                                            <div class="form-group">
+                                                <label for="condition" class="col-sm-2 control-label">条件</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="condition" placeholder="条件">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="condition" class="col-sm-2 control-label">选取条件</label>
-                                            <div class="col-sm-2">
-                                                <input type="radio" name="select" placeholder="条件" value="text">文本
+                                            <div class="form-group">
+                                                <label for="condition" class="col-sm-2 control-label">选取条件</label>
+                                                <div class="col-sm-2">
+                                                    <input type="radio" name="select" placeholder="条件" value="text">文本
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="radio" name="select" placeholder="条件" value="attr">属性
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" id="attribute" placeholder="属性(例：name)">
+                                                </div>
                                             </div>
-                                            <div class="col-sm-2">
-                                                <input type="radio" name="select" placeholder="条件" value="attr">属性
+                                            <div class="form-group-sm">
+                                                <div class="col-sm-6"></div>
+                                                <div >
+                                                    <button type="button" class="btn btn-danger btn-xs" value="2">
+                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <input type="text" id="attribute" placeholder="属性(例：name)">
+                                        </form>
+                                        <hr>
+                                    </div>
+                                    <div class="row">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="conditionType" class="col-sm-2 control-label">过滤类型</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="conditionType">
+                                                        <option value="ID">根据id过滤</option>
+                                                        <option value="CLASS">根据class样式过滤</option>
+                                                        <option value="TAG">根据tag标签过滤</option>
+                                                        <option value="REGEX">根据正则表达式过滤</option>
+                                                        <option value="XPATH">根据Xpath过滤</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group-sm">
-                                            <div class="col-sm-5"></div>
-                                            <div >
-                                                <button type="button" class="btn btn-danger btn-xs" value="2">
-                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                </button>
+                                            <div class="form-group">
+                                                <label for="condition" class="col-sm-2 control-label">条件</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="condition" placeholder="条件">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                            <div class="form-group">
+                                                <label for="condition" class="col-sm-2 control-label">选取条件</label>
+                                                <div class="col-sm-2">
+                                                    <input type="radio" name="select" placeholder="条件" value="text">文本
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="radio" name="select" placeholder="条件" value="attr">属性
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" id="attribute" placeholder="属性(例：name)">
+                                                </div>
+                                            </div>
+                                            <div class="form-group-sm">
+                                                <div class="col-sm-5"></div>
+                                                <div >
+                                                    <button type="button" class="btn btn-danger btn-xs" value="2">
+                                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-offset-5 btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-success ">新增条件</button>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +186,7 @@
                     <div class="row ">
                         <form class="form-horizontal">
                             <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-success ">新增条件</button>
+                                <button type="button" class="btn btn-success ">新增字段</button>
                             </div>
 
                         </form>
