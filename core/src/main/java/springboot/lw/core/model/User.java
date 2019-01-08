@@ -1,4 +1,4 @@
-package springboot.lw.login.model;
+package springboot.lw.core.model;
 
 import lombok.Data;
 

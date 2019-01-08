@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.lw.core.model.ExcuteParameter;
+import springboot.lw.core.model.FilterParam;
+import springboot.lw.core.model.RequestParam;
 import springboot.lw.core.model.Result;
 import springboot.lw.core.service.Crawl;
 import springboot.lw.core.service.Excute;
@@ -19,30 +21,32 @@ public class ExcuteImp implements Excute {
     @Override
     public Result excute(ExcuteParameter parameter) throws Exception {
         Result result = new Result();
-        Connection connection = crawl.connect(parameter.getUrl()).ignoreContentType(true);
-        connection = crawl.data(connection,parameter.getData());
-        connection = crawl.method(connection,parameter.getMethod());
+        RequestParam requestParam = parameter.getRequestParam();
+        FilterParam filterParam = parameter.getFilterParam();
+        Connection connection = crawl.connect(requestParam.getUrl()).ignoreContentType(true);
+        connection = crawl.data(connection,requestParam.getData());
+        connection = crawl.method(connection,requestParam.getMethod());
         connection = crawl.doLogin(connection,
-                parameter.getLoginUrl(),parameter.getLoginData());
-        connection = crawl.cookies(connection,parameter.getCookies());
-        connection = crawl.headers(connection,parameter.getHeaders());
-        connection = crawl.proxy(connection,parameter.getProxyHost(),parameter.getProxyPort());
-        connection = crawl.requestBody(connection,parameter.getRequestBody());
+                requestParam.getLoginUrl(),requestParam.getLoginData());
+        connection = crawl.cookies(connection,requestParam.getCookies());
+        connection = crawl.headers(connection,requestParam.getHeaders());
+        connection = crawl.proxy(connection,requestParam.getProxyHost(),requestParam.getProxyPort());
+        connection = crawl.requestBody(connection,requestParam.getRequestBody());
         Connection.Response response = crawl.excute(connection);
 
-        result.setMethod(parameter.getMethod().toUpperCase());
+        result.setMethod(requestParam.getMethod().toUpperCase());
         result.setCharset(crawl.charset(response));
         result.setHeaders(crawl.headers(response));
         result.setStatusCode(crawl.statusCode(response));
         result.setStatusMessage(crawl.statusMessage(response));
         result.setCharset(crawl.charset(response));
 
-        if (!parameter.isFilter()){
+        if (filterParam==null){
             result.setBody(crawl.body(response));
             result.setContentType(crawl.contentType(response));
         }else {
             Element body = crawl.parseHtml(crawl.body(response));
-            //todo
+
         }
 
         return result;

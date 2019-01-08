@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="springboot.lw.login.dao.ImageMapper">
+    
+    <resultMap id="UserImage" type="springboot.lw.core.model.UserImage">
+        <id property="id" column="id" />
+        <result property="account" column="account" />
+        <result property="createTime" column="create_time" />
+        <result property="image" column="image" />
+        <result property="mode" column="mode" />
+        <result property="modifiedTime" column="modified_time" />
+    </resultMap>
+
+    <insert id="save" keyProperty="id" useGeneratedKeys="true"
+            parameterType="springboot.lw.core.model.UserImage">
+      insert into user_image(`account`,image,create_time,mode,modified_time)
+      values (#{account},#{image},#{createTime},#{mode},#{modifiedTime})
+    </insert>
+    <update id="update" parameterType="springboot.lw.core.model.UserImage">
+        update user_image set mode=#{mode},modified_time=#{modifiedTime} where id=#{id}
+    </update>
+    <select id="getUserImage" resultType="springboot.lw.core.model.UserImage">
+        select * from user_image where account=#{account}
+    </select>
+    <select id="getLastUserImage" resultType="springboot.lw.core.model.UserImage">
+        select * from user_image where account=#{account} order by modified_time desc limit 1
+    </select>
+
+</mapper>

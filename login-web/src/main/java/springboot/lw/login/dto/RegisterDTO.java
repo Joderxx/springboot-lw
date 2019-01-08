@@ -1,7 +1,7 @@
 package springboot.lw.login.dto;
 
 import lombok.Data;
-import springboot.lw.login.model.User;
+import springboot.lw.core.model.User;
 
 @Data
 public class RegisterDTO {

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import springboot.lw.login.config.ParamConfig;
 import springboot.lw.login.dto.LoginDTO;
-import springboot.lw.login.model.User;
+import springboot.lw.core.model.User;
 import springboot.lw.login.service.UserService;
-import springboot.lw.login.util.Md5Util;
+import springboot.lw.core.util.Md5Util;
 
 @Controller
 public class LoginController {
@@ -38,7 +38,7 @@ public class LoginController {
             model.addAttribute("passwordMsg","账号或密码错误");
             return "/login";
         }else {
-            long time = System.currentTimeMillis()/1000;
+            long time = System.currentTimeMillis();
             String account = user.getAccount();
             String sign = Md5Util.md5("account="+user.getAccount()+"&time="+time);
             return "redirect:http://"+paramConfig.getProperty("main.url")+

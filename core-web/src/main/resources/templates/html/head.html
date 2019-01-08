@@ -15,26 +15,130 @@
                         用户中心<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li role="presentation"><a href="#">用户信息</a></li>
-                        <li role="presentation"><a th:href="@{'http://127.0.0.1:8081/changePassword'}">修改密码</a></li>
-                        <li role="presentation"><a th:href="@{'http://127.0.0.1:8081/logout'(sign=${sign},time=${time},user=${userId})}">退出登录</a></li>
+                        <li role="presentation"><a href="#" data-toggle="modal" data-target="#userInfo">用户信息</a></li>
+                        <li role="presentation"><a th:href="@{${loginHost}+'/changePassword'}">修改密码</a></li>
+                        <li role="presentation"><a th:href="@{${loginHost}+'/login'}">重新登录</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
         <div class="col-sm-2">
-            <a href="#" class="href">
-                <img src="/image/default.png" width="40px" height="40px">
-                <span style="padding-left: 5px" >Joder</span>
+            <a href="#" class="href" data-toggle="modal" data-target="#userInfo">
+                <img th:src="@{${loginHost}+'/user/avatar'(sign=${sign},time=${time},account=${account})}" width="40px" height="40px">
+                <span style="padding-left: 5px" th:text="${username}"></span>
             </a>
         </div>
     </div>
+    <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="userInfo" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" >用户信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div style="margin: auto 100px">
+                            <table class="table" style="font-size: 20px">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <img th:src="@{${loginHost}+'/user/avatar'(sign=${sign},time=${time},account=${account})}" width="100px" height="100px">
+                                        <button type="button" class="btn btn-sm-primary btn-sm" data-toggle="modal" data-target="#changeAvatar">更改头像</button>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>用户名</td>
+                                    <td th:text="${username}"></td>
+
+                                </tr>
+                                <tr>
+                                    <td>账号</td>
+                                    <td th:text="${account}"></td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="changeAvatar" tabindex="-1" role="dialog" aria-labelledby="changeAvatar" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" >修改头像</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div style="margin: auto 100px">
+                            <input type="file" name="reportFile" id="reportFile" multiple class="file-loading" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $("#userCenter").mouseover(function () {
             $("#userCenter").attr("class","dropdown open")
         }).mouseout(function () {
             $("#userCenter").attr("class","dropdown")
         })
+        var FileInput = function () {
+            var oFile = new Object();
+
+            //初始化fileinput控件（第一次初始化）
+            oFile.Init = function(ctrlName, uploadUrl) {
+                var control = $('#' + ctrlName);
+
+                //初始化上传控件的样式
+                control.fileinput({
+                    language: 'zh',                                         //设置语言
+                    uploadUrl: uploadUrl,                                   //上传的地址
+                    allowedFileExtensions: ['jpg'],    //接收的文件后缀
+                    showUpload: true,                                       //是否显示上传按钮
+                    showCaption: false,                                     //是否显示标题
+                    browseClass: "btn btn-primary",                         //按钮样式
+                    maxFileCount: 1,                                       //表示允许同时上传的最大文件个数
+                    enctype: 'multipart/form-data',
+                    validateInitialCount:true,
+                    previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+                    maxFileSize: 3072,
+                    msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+                    uploadExtraData:function (previewId, index) {           //传参
+                        var data = {
+                            "reportGroupId": $('#lbl_groupId').html(),      //此处自定义传参
+                        };
+                        return data;
+                    }
+                });
+
+                //导入文件上传完成之后的事件
+                $("#reportFile").on("fileuploaded", function (event, data, previewId, index) {
+                    //报告table刷新
+                    var account = document.getElementById("account").value;
+                    var time = document.getElementById("time").value;
+                    var sign = document.getElementById("sign").value;
+                    location.href="/user/main?account="+account+"&time="+time+"&sign="+sign
+                });
+            }
+            return oFile;
+        };
+
+        var oFileInput = new FileInput();
+        var account = document.getElementById("account").value;
+        var loginHost = document.getElementById("loginHost").value;
+        var time = document.getElementById("time").value;
+        var sign = document.getElementById("sign").value;
+        //参数1:控件id、参数2:上传地址
+        oFileInput.Init("reportFile", loginHost+"/user/avatar?account="+account+"&time="+time+"&sign="+sign);
+
     </script>
 </div>
 

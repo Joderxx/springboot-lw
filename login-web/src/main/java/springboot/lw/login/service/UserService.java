@@ -3,8 +3,8 @@ package springboot.lw.login.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.lw.login.dao.UserMapper;
-import springboot.lw.login.model.User;
-import springboot.lw.login.util.Md5Util;
+import springboot.lw.core.model.User;
+import springboot.lw.core.util.Md5Util;
 
 @Service
 public class UserService {

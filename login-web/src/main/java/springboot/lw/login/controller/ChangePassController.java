@@ -7,9 +7,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import springboot.lw.login.dto.ChangePassDTO;
-import springboot.lw.login.model.User;
+import springboot.lw.core.model.User;
 import springboot.lw.login.service.UserService;
-import springboot.lw.login.util.Md5Util;
+import springboot.lw.core.util.Md5Util;
 
 @Controller
 public class ChangePassController {

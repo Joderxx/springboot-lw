@@ -1,4 +1,4 @@
-package springboot.lw.coreweb.model;
+package springboot.lw.core.model;
 
 /**
  * @author xiejiedun on 2019/1/5

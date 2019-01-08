@@ -1,4 +1,4 @@
-package springboot.lw.login.util;
+package springboot.lw.core.util;
 
 import org.springframework.util.DigestUtils;
 

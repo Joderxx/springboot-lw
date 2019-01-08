@@ -23,6 +23,11 @@
             <div class="row">
 
                 <form class="form-horizontal" id="query-form" th:action="@{/user/crawl/doProcess}" method="post">
+                    <input class="hidden" id="account" name="account" th:value="${account}">
+                    <input class="hidden" id="loginHost" name="loginHost" th:value="${loginHost}">
+                    <input class="hidden" id="username" name="username" th:value="${username}">
+                    <input class="hidden" id="time" name="time" th:value="${time}">
+                    <input class="hidden" id="sign" name="sign" th:value="${sign}">
                     <div class="form-group">
                         <label for="method" class="col-sm-1 control-label">Method</label>
                         <div class="col-sm-2">
@@ -48,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group-sm">
+                    <div class="form-group-sm" >
                         <div class="col-sm-1"></div>
                         <div class="btn-group btn-group-sm">
                             <button type="button" class="btn btn-primary" onclick="addCondition(this)">添加条件</button>
@@ -61,23 +66,23 @@
                 </form>
             </div>
             <br>
-            <div id="parameter" class="row col-sm-offset-1 col-sm-10">
+            <div id="parameter" class="row col-sm-12p">
 
             </div>
-            <div id="header" class="row col-sm-offset-1 col-sm-10">
+            <div id="header" class="row col-sm-12">
 
             </div>
-            <div id="proxy" class="row col-sm-offset-1 col-sm-10">
+            <div id="proxy" class="row col-sm-12">
 
             </div>
-            <div id="conditionBody" class="row col-sm-offset-1 col-sm-10">
+            <div id="conditionBody" class="row col-sm-12">
             </div>
-            <div class="row col-sm-offset-1 col-sm-10">
+            <div class="row col-sm-12">
                 <div class="row panel panel-info text-center">
                     <div class="panel-heading">条件</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-8 col-lg-offset-2 panel panel-success text-left">
+                            <div class="col-lg-10 col-lg-offset-1 panel panel-success text-left">
                                 <div class="panel-heading">
                                     条件
                                 </div>

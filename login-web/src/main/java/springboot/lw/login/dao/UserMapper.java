@@ -3,7 +3,7 @@ package springboot.lw.login.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import springboot.lw.login.model.User;
+import springboot.lw.core.model.User;
 
 @Mapper
 @Repository
