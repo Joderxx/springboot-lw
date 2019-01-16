@@ -16,7 +16,7 @@ import springboot.lw.core.service.Excute;
  */
 @Controller
 @RequestMapping("/user/crawl")
-public class DealController {
+public class DealController extends BaseController{
 
     @Autowired
     private Excute excute;

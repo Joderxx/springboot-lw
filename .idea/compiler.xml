@@ -6,14 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="core" />
         <module name="core-web" />
         <module name="crawl.core" />
+        <module name="login" />
         <module name="login-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="core" target="1.8" />
       <module name="core-web" target="1.8" />
       <module name="crawl.core" target="1.8" />
+      <module name="login" target="1.8" />
       <module name="login-web" target="1.8" />
       <module name="lw" target="1.8" />
       <module name="springboot-lw" target="1.8" />
