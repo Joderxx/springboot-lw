@@ -135,3 +135,7 @@ function addCondition(btn) {
 function addChildCondition(btn) {
     
 }
+
+function removeCondition(s) {
+    $("#"+s).remove()
+}
