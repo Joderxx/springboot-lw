@@ -1,20 +1,21 @@
 package springboot.lw.login.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import springboot.lw.core.model.enumeration.Return;
+import springboot.lw.core.service.UserService;
 import springboot.lw.login.dto.RegisterDTO;
 import springboot.lw.core.model.User;
-import springboot.lw.login.service.UserService;
 import springboot.lw.core.util.Md5Util;
 
 @Controller
 public class RegisterController {
 
-    @Autowired
+    @Reference
     private UserService userService;
 
     @GetMapping("/register")
@@ -42,10 +43,10 @@ public class RegisterController {
         }
         User user = registerDTO.toUser();
         user.setPassword(Md5Util.md5(user.getPassword()));
-        UserService.Return insert = userService.insert(user);
-        if (insert== UserService.Return.REPEAT_ACCOUNT){
+        Return insert = userService.insert(user);
+        if (insert== Return.REPEAT_ACCOUNT){
             model.addAttribute("accountMsg","账号已存在");
-        }else if (insert== UserService.Return.FAIL){
+        }else if (insert== Return.FAIL){
             model.addAttribute("msg","未知错误");
         }else {
             model.addAttribute("username",user.getAccount());

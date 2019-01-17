@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/core-web/pom.xml" />
         <option value="$PROJECT_DIR$/login-web/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/core-mapper/pom.xml" />
       </list>
     </option>
   </component>

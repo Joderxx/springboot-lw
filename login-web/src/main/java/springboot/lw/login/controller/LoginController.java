@@ -1,21 +1,22 @@
 package springboot.lw.login.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
+import springboot.lw.core.service.UserService;
 import springboot.lw.login.config.ParamConfig;
 import springboot.lw.login.dto.LoginDTO;
 import springboot.lw.core.model.User;
-import springboot.lw.login.service.UserService;
 import springboot.lw.core.util.Md5Util;
 
 @Controller
 public class LoginController {
 
-    @Autowired
+    @Reference
     private UserService userService;
     @Autowired
     private ParamConfig paramConfig;

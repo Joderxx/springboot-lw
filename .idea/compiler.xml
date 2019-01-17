@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
+        <module name="core-mapper" />
         <module name="core-web" />
         <module name="crawl.core" />
         <module name="login" />
@@ -15,6 +16,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="1.8" />
+      <module name="core-mapper" target="1.8" />
       <module name="core-web" target="1.8" />
       <module name="crawl.core" target="1.8" />
       <module name="login" target="1.8" />

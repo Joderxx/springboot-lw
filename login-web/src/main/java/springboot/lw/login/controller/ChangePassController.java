@@ -1,20 +1,20 @@
 package springboot.lw.login.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import springboot.lw.core.service.UserService;
 import springboot.lw.login.dto.ChangePassDTO;
 import springboot.lw.core.model.User;
-import springboot.lw.login.service.UserService;
-import springboot.lw.core.util.Md5Util;
+
 
 @Controller
 public class ChangePassController {
 
-    @Autowired
+    @Reference
     private UserService userService;
 
     @GetMapping("/changePassword")

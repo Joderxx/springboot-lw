@@ -1,4 +1,4 @@
-package springboot.lw.login.dao;
+package springboot.lw.core.mapper.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

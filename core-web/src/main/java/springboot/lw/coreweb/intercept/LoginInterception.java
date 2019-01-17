@@ -1,14 +1,15 @@
 package springboot.lw.coreweb.intercept;
 
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import springboot.lw.core.service.UserService;
 import springboot.lw.core.model.User;
 import springboot.lw.core.util.Md5Util;
 import springboot.lw.coreweb.config.ParamConfig;
-import springboot.lw.coreweb.service.UserService;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class LoginInterception implements HandlerInterceptor {
 
     @Autowired
     private ParamConfig paramConfig;
-    @Autowired
+    @Reference
     private UserService userService;
 
     @Override

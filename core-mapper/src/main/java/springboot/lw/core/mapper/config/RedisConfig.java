@@ -1,4 +1,4 @@
-package springboot.lw.coreweb.config;
+package springboot.lw.core.mapper.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -23,16 +24,14 @@ import redis.clients.jedis.JedisPool;
 /**
  * @author xiejiedun on 2019/1/16
  */
-@Configuration
-@EnableCaching
+//@Configuration
+//@EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
-    @Value("${spring.redis.host}")
+    @Value("${redis.host}")
     private String host;
-    @Value("${spring.redis.port}")
+    @Value("${redis.port}")
     private int port;
-    @Value("${spring.redis.timeout}")
-    private int timeout;
     @Autowired
     private JedisConnectionFactory jedisConnectionFactory;
 

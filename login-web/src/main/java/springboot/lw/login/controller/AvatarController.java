@@ -1,5 +1,6 @@
 package springboot.lw.login.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -7,8 +8,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springboot.lw.core.model.UserImage;
+import springboot.lw.core.service.AvatarService;
 import springboot.lw.login.config.ParamConfig;
-import springboot.lw.login.service.AvatarService;
 import springboot.lw.core.util.Md5Util;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class AvatarController {
     @Autowired
     private ParamConfig paramConfig;
 
-    @Autowired
+    @Reference
     private AvatarService avatarService;
 
     @GetMapping("/avatar")

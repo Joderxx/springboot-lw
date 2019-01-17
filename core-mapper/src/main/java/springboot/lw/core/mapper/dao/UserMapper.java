@@ -1,10 +1,14 @@
-package springboot.lw.login.dao;
+package springboot.lw.core.mapper.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import springboot.lw.core.model.User;
 
+/**
+ * @author xiejiedun on 2019/1/17
+ */
 @Mapper
 @Repository
 public interface UserMapper {
@@ -26,4 +30,7 @@ public interface UserMapper {
     int existUsername(String username);
 
     int existAccount(String account);
+
+    @Cacheable(value = "user",key = "'user:'+#account")
+    User getUserByAccount(String account);
 }

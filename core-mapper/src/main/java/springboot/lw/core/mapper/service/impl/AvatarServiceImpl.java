@@ -1,17 +1,23 @@
-package springboot.lw.login.service;
+package springboot.lw.core.mapper.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import springboot.lw.core.mapper.dao.ImageMapper;
 import springboot.lw.core.model.UserImage;
-import springboot.lw.login.dao.ImageMapper;
+import springboot.lw.core.service.AvatarService;
 
-
-@Service
-public class AvatarService {
+/**
+ * @author xiejiedun on 2019/1/17
+ */
+@Component
+@Service(interfaceClass = AvatarService.class)
+public class AvatarServiceImpl implements AvatarService {
 
     @Autowired
     private ImageMapper imageMapper;
 
+    @Override
     public boolean saveAvatar(byte[] data,String account){
         UserImage image = new UserImage();
         image.setImage(data);
@@ -24,6 +30,7 @@ public class AvatarService {
         return num>0;
     }
 
+    @Override
     public UserImage getAvatar(String account){
         return imageMapper.getLastUserImage(account);
     }
