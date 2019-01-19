@@ -1,6 +1,6 @@
 var headerFlag = true; //是否添加头部
 var proxyFlag = true;
-var headerNum = 0;
+
 var  paramNum = 0;
 function updateParameter(input) {
     var param = document.getElementById("parameter");
@@ -104,15 +104,19 @@ function addHeaderForm(btn) {
     }
 }
 
+var headerIndex = 0;
+var headArr = [];
+
 function addHeaderInfo(btn) {
-    headerNum++;
-    var header = document.getElementById("headers");
-    header.innerHTML += headerInfoTemp(headerNum);
+    $("#headers").append(headerInfoTemp(headerIndex));
+    headArr[headerIndex] = 'headerInfo-'+headerIndex;
+    headerIndex++;
+
 }
 
-function delHeaderInfo(div) {
-    var div = document.getElementById(div);
-    div.parentNode.removeChild(div)
+function delHeaderInfo(index) {
+    $("#headerInfo-"+index).remove();
+    headArr[index] = ''
 }
 
 
@@ -132,10 +136,57 @@ function addCondition(btn) {
 
 }
 
-function addChildCondition(btn) {
-    
-}
-
 function removeCondition(s) {
     $("#"+s).remove()
+}
+
+var commonIndex = 0;
+var commonArr = [];
+
+function addCommonCondition(btn) {
+    $(".common-condition-body").append(commonConditionTemp(commonIndex));
+    commonArr[commonIndex] = 'common-'+commonIndex;
+    commonIndex++;
+}
+
+function removeCommonCondition(index) {
+    commonArr[index] = '';
+    $("#common-"+index).remove();
+}
+
+var fieldIndex = 0;
+var fieldArr = [];
+
+function addFiled(btn) {
+    $(".field-condition-body").append(filedTemp(fieldIndex));
+    fieldArr[fieldIndex] = 'field-'+commonIndex;
+    fieldIndex++;
+}
+
+function removeFiled(index) {
+    fieldArr[index] = '';
+    $("#field-"+index).remove();
+}
+
+var fieldConditionIndex = 0;
+var fieldConditionArr = [];
+
+function addFiledCondition(index) {
+
+    $(".filed-condition-"+index).append(fieldConditionTemp(index,fieldConditionIndex))
+    fieldConditionArr[fieldConditionIndex] = 'field-'+index+"-condition-"+fieldConditionIndex;
+    fieldConditionIndex++;
+}
+
+function removeFiledCondition(index1,index2) {
+    fieldConditionArr[index2] = '';
+    $("#field-"+index1+"-condition-"+index2).remove();
+}
+
+function hide(s) {
+    $("#"+s+" div:nth-child(1) div.col-sm-11 form div:nth-child(3) div.show").attr('class','hidden')
+}
+
+function show(s) {
+    $("#"+s+" div:nth-child(1) div.col-sm-11 form div:nth-child(3) div.hidden").attr('class','show')
 }

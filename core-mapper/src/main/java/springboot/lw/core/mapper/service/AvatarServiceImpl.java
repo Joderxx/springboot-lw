@@ -1,4 +1,4 @@
-package springboot.lw.core.mapper.service.impl;
+package springboot.lw.core.mapper.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
