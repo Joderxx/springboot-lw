@@ -81,13 +81,13 @@ function headerInfoTemp(index) {
     var temp = "<div id='headerInfo-"+index+"' class=\"row\">\n" +
         "                        <div class=\"row panel col-sm-offset-1 col-sm-10\">\n" +
         "                            <div class=\"col-sm-3 \">\n" +
-        "                                <input type=\"text\" class=\"form-control\" id=\"headerKey_"+index+"\" placeholder=\"头部键(例：Cookie)\" style='height: 25px'>\n" +
+        "                                <input type=\"text\" class=\"form-control\" name='header-key' placeholder=\"头部键(例：Cookie)\" style='height: 25px'>\n" +
         "                            </div>\n" +
         "                            <div class=\"col-sm-1 \">\n" +
         "                                =\n" +
         "                            </div>\n" +
         "                            <div class=\"col-sm-6 \">\n" +
-        "                                <input type=\"text\" class=\"form-control\" id=\"headerValue_"+index+"\" placeholder=\"头部值(例：value123)\" style='height: 25px'>\n" +
+        "                                <input type=\"text\" class=\"form-control\" name='header-value' placeholder=\"头部值(例：value123)\" style='height: 25px'>\n" +
         "                            </div>\n" +
         "                            <div >\n" +
         "                                <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick='delHeaderInfo("+index+")' >\n" +
@@ -143,13 +143,13 @@ function conditionTemp() {
 function commonConditionTemp(index) {
     var temp = "<div class=\"row\" id='common-"+index+"'>\n" +
         "                                        <div class=\"row\" >\n" +
-        "                                            <div class=\"col-sm-11\">\n" +
+        "                                            <div class=\"col-sm-10\">\n" +
         "                                                <form class=\"form-horizontal\">\n" +
         "                                                    <div class=\"form-group\">\n" +
         "                                                        <label class=\"col-sm-2 control-label\">过滤类型</label>\n" +
         "                                                        <div class=\"col-sm-9\">\n" +
-        "                                                            <select class=\"form-control\" >\n" +
-        "                                                                <option value=\"ID\">根据id过滤</option>\n" +
+        "                                                            <select class=\"form-control\" name='select-condition'>\n" +
+        "                                                                <option value=\"ID\" selected>根据id过滤</option>\n" +
         "                                                                <option value=\"CLASS\">根据class样式过滤</option>\n" +
         "                                                                <option value=\"TAG\">根据tag标签过滤</option>\n" +
         "                                                                <option value=\"REGEX\">根据正则表达式过滤</option>\n" +
@@ -160,19 +160,19 @@ function commonConditionTemp(index) {
         "                                                    <div class=\"form-group\">\n" +
         "                                                        <label class=\"col-sm-2 control-label\">条件</label>\n" +
         "                                                        <div class=\"col-sm-9\">\n" +
-        "                                                            <input type=\"text\" class=\"form-control\" placeholder=\"条件\">\n" +
+        "                                                            <input type=\"text\" name='select-condition-text' class=\"form-control\" placeholder=\"条件\">\n" +
         "                                                        </div>\n" +
         "                                                    </div>\n" +
         "                                                    <div class=\"form-group\">\n" +
         "                                                        <label class=\"col-sm-2 control-label\">选取条件</label>\n" +
-        "                                                        <div class=\"col-sm-1\">\n" +
+        "                                                        <div class=\"col-sm-2\">\n" +
         "                                                            <input type=\"radio\" checked name=\"select\" placeholder=\"条件\" value=\"text\" onclick=\"hide('common-"+index+"')\">文本\n" +
         "                                                        </div>\n" +
-        "                                                        <div class=\"col-sm-1\">\n" +
+        "                                                        <div class=\"col-sm-2\">\n" +
         "                                                            <input type=\"radio\" name=\"select\" placeholder=\"条件\" value=\"attr\" onclick=\"show('common-"+index+"')\">属性\n" +
         "                                                        </div>\n" +
         "                                                        <div class=\"hidden\" >\n" +
-        "                                                            <input type=\"text\" placeholder=\"属性(例：name)\">\n" +
+        "                                                            <input type=\"text\" name='attr-text' placeholder=\"属性(例：name)\">\n" +
         "                                                        </div>\n" +
         "                                                    </div>\n" +
         "\n" +
@@ -180,11 +180,9 @@ function commonConditionTemp(index) {
         "                                            </div>\n" +
         "                                            <div class=\"col-sm-1\">\n" +
         "                                                <div class=\"form-group-sm\">\n" +
-        "                                                    <div class=\"col-sm-offset-5 col-sm-1\">\n" +
-        "                                                        <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"removeCommonCondition("+index+")\">\n" +
+        "                                                    <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick=\"removeCommonCondition("+index+")\">\n" +
         "                                                            <span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>\n" +
         "                                                        </button>\n" +
-        "                                                    </div>\n" +
         "                                                </div>\n" +
         "                                            </div>\n" +
         "                                        </div>\n" +
@@ -202,13 +200,13 @@ function filedTemp(index) {
     var temp = "<div class=\"row\" id='field-"+index+"'>\n" +
         "                                        <div class=\"row panel panel-info text-center\">\n" +
         "                                            <div class=\"panel-heading\">\n" +
-        "                                                <input placeholder='字段"+index+"'>" +
+        "                                                <input name='filed-name' placeholder='字段"+index+"'>" +
         "                                       <button type=\"button\" class=\"btn btn-danger btn-xs\" onclick='removeFiled("+index+")'>\n" +
         "                                                    <span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>\n" +
         "                                                </button>"+
         "                                            </div>\n" +
         "                                            <div class=\"panel-body\">\n" +
-        "<div class=\"row\">\n" +
+        "                                        <div class=\"row\">\n" +
         "                                                    <div class=\"filed-condition-"+index+"\">\n" +
         "\n" +
         "                                                    </div>\n" +
@@ -228,13 +226,13 @@ function filedTemp(index) {
 function fieldConditionTemp(index1,index2) {
     var temp = "<div class=\"row\" id='field-"+index1+"-condition-"+index2+"'>\n" +
         "                                        <div class=\"row\" >\n" +
-        "                                            <div class=\"col-sm-11\">\n" +
+        "                                            <div class=\"col-sm-10\">\n" +
         "                                                <form class=\"form-horizontal\">\n" +
         "                                                    <div class=\"form-group\">\n" +
         "                                                        <label class=\"col-sm-2 control-label\">过滤类型</label>\n" +
         "                                                        <div class=\"col-sm-9\">\n" +
-        "                                                            <select class=\"form-control\" >\n" +
-        "                                                                <option value=\"ID\">根据id过滤</option>\n" +
+        "                                                            <select class=\"form-control\" name='select-condition' >\n" +
+        "                                                                <option value=\"ID\" selected>根据id过滤</option>\n" +
         "                                                                <option value=\"CLASS\">根据class样式过滤</option>\n" +
         "                                                                <option value=\"TAG\">根据tag标签过滤</option>\n" +
         "                                                                <option value=\"REGEX\">根据正则表达式过滤</option>\n" +
@@ -245,19 +243,19 @@ function fieldConditionTemp(index1,index2) {
         "                                                    <div class=\"form-group\">\n" +
         "                                                        <label class=\"col-sm-2 control-label\">条件</label>\n" +
         "                                                        <div class=\"col-sm-9\">\n" +
-        "                                                            <input type=\"text\" class=\"form-control\" placeholder=\"条件\">\n" +
+        "                                                            <input type=\"text\" name='select-condition-text' class=\"form-control\" placeholder=\"条件\">\n" +
         "                                                        </div>\n" +
         "                                                    </div>\n" +
         "                                                    <div class=\"form-group\">\n" +
         "                                                        <label class=\"col-sm-2 control-label\">选取条件</label>\n" +
-        "                                                        <div class=\"col-sm-1\">\n" +
+        "                                                        <div class=\"col-sm-2\">\n" +
         "                                                            <input type=\"radio\" checked name=\"select\" placeholder=\"条件\" value=\"text\" onclick=\"hide('field-"+index1+"-condition-"+index2+"')\">文本\n" +
         "                                                        </div>\n" +
-        "                                                        <div class=\"col-sm-1\">\n" +
+        "                                                        <div class=\"col-sm-2\">\n" +
         "                                                            <input type=\"radio\" name=\"select\" placeholder=\"条件\" value=\"attr\" onclick=\"show('field-"+index1+"-condition-"+index2+"')\">属性\n" +
         "                                                        </div>\n" +
         "                                                        <div class=\"hidden\" >\n" +
-        "                                                            <input type=\"text\" placeholder=\"属性(例：name)\">\n" +
+        "                                                            <input type=\"text\" name='attr-text' placeholder=\"属性(例：name)\">\n" +
         "                                                        </div>\n" +
         "                                                    </div>\n" +
         "\n" +

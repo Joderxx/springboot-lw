@@ -42,8 +42,8 @@ public class LoginController {
             long time = System.currentTimeMillis();
             String account = user.getAccount();
             String sign = Md5Util.md5("account="+user.getAccount()+"&time="+time);
-            return "redirect:http://"+paramConfig.getProperty("main.url")+
-                    "?account="+account+"&time="+time+"&sign="+sign;
+            return "redirect:"+paramConfig.getProperty("main.url")+
+                    "/user/main?account="+account+"&time="+time+"&sign="+sign;
         }
 
     }

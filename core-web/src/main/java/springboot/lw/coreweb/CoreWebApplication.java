@@ -7,7 +7,6 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @EnableDubboConfiguration
-@EnableCaching
 public class CoreWebApplication {
 
     public static void main(String[] args) {

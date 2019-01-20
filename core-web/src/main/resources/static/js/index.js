@@ -156,37 +156,38 @@ function removeCommonCondition(index) {
 
 var fieldIndex = 0;
 var fieldArr = [];
+var fieldConditionIndex = 0;
+var fieldConditionArr = [];
 
 function addFiled(btn) {
     $(".field-condition-body").append(filedTemp(fieldIndex));
     fieldArr[fieldIndex] = 'field-'+commonIndex;
+    fieldConditionArr[fieldIndex] = [];
     fieldIndex++;
 }
 
 function removeFiled(index) {
     fieldArr[index] = '';
+    fieldConditionArr[index] = [];
     $("#field-"+index).remove();
 }
-
-var fieldConditionIndex = 0;
-var fieldConditionArr = [];
 
 function addFiledCondition(index) {
 
     $(".filed-condition-"+index).append(fieldConditionTemp(index,fieldConditionIndex))
-    fieldConditionArr[fieldConditionIndex] = 'field-'+index+"-condition-"+fieldConditionIndex;
+    fieldConditionArr[index][fieldConditionIndex] = 'field-'+index+"-condition-"+fieldConditionIndex;
     fieldConditionIndex++;
 }
 
 function removeFiledCondition(index1,index2) {
-    fieldConditionArr[index2] = '';
+    fieldConditionArr[index1][index2] = '';
     $("#field-"+index1+"-condition-"+index2).remove();
 }
 
 function hide(s) {
-    $("#"+s+" div:nth-child(1) div.col-sm-11 form div:nth-child(3) div.show").attr('class','hidden')
+    $("#"+s+" div:nth-child(1) div.col-sm-10 form div:nth-child(3) div.show").attr('class','hidden')
 }
 
 function show(s) {
-    $("#"+s+" div:nth-child(1) div.col-sm-11 form div:nth-child(3) div.hidden").attr('class','show')
+    $("#"+s+" div:nth-child(1) div.col-sm-10 form div:nth-child(3) div.hidden").attr('class','show')
 }
