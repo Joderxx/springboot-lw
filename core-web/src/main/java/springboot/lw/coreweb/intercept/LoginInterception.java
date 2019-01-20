@@ -25,17 +25,22 @@ public class LoginInterception implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String account = request.getParameter("account");
+        String tid = request.getParameter("tid");
         String time = request.getParameter("time");
         String sign = request.getParameter("sign");
         if (StringUtils.isEmpty(sign)||StringUtils.isEmpty(account)||StringUtils.isEmpty(time)){
             response.sendRedirect(paramConfig.getProperty("login.host")+"/login");
+        }
+        if (StringUtils.isEmpty(tid)){
+            tid = "0";
         }
         long t = Long.valueOf(time);
         //半小时
         if (System.currentTimeMillis()-t>1800000){
             response.sendRedirect(paramConfig.getProperty("login.host")+"/login");
         }
-        String md5 = Md5Util.md5("account="+account+"&time="+time);
+        String source = String.format("account=%s&tid=%s&time=%s",account,tid,time);
+        String md5 = Md5Util.md5(source);
         if (!md5.equals(sign)){
             response.sendRedirect(paramConfig.getProperty("login.host")+"/login");
         }
@@ -45,13 +50,19 @@ public class LoginInterception implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         String account = request.getParameter("account");
+        String tid = request.getParameter("tid");
+        if (StringUtils.isEmpty(tid)){
+            tid = "0";
+        }
         request.setAttribute("loginHost",paramConfig.getProperty("login.host"));
         request.setAttribute("mainHost",paramConfig.getProperty("main.host"));
         User user = userService.getUserByAccount(account);
         if (user!=null){
             long time =System.currentTimeMillis();
-            String sign = Md5Util.md5("account="+account+"&time="+time);
+            String source = String.format("account=%s&tid=%s&time=%s",account,tid,time);
+            String sign = Md5Util.md5(source);
             request.setAttribute("account",account);
+            request.setAttribute("tid",tid);
             request.setAttribute("time",time);
             request.setAttribute("sign",sign);
             request.setAttribute("username",user.getUsername());

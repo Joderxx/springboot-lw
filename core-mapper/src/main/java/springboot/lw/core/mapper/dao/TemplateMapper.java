@@ -1,6 +1,7 @@
 package springboot.lw.core.mapper.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import springboot.lw.core.model.Template;
 
@@ -26,7 +27,7 @@ public interface TemplateMapper {
      * @param tid
      * @return
      */
-    int deleteById(long userId,long tid);
+    int deleteById(@Param("userId") long userId, @Param("tid") long tid);
 
     /**
      * 获取公开模板
@@ -41,7 +42,7 @@ public interface TemplateMapper {
      * @param tid
      * @return
      */
-    Template getByUserIdAndId(long userId,long tid);
+    Template getByUserIdAndId(@Param("userId") long userId, @Param("tid") long tid);
 
     /**
      * 获取用户模板列表
