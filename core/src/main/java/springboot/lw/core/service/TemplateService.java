@@ -19,6 +19,16 @@ public interface TemplateService {
     boolean saveTemplate(Template template);
 
     /**
+     * 更新
+     * @param tid
+     * @param publish
+     * @return
+     */
+    boolean updateTemplatePublish(long tid,boolean publish);
+
+    List<Template> getPublicTemplate();
+
+    /**
      * 得到用户模板
      * @param userId
      * @return

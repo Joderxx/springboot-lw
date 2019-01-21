@@ -24,6 +24,7 @@
 <input class="hidden" id="account" th:value="${account}">
 <input class="hidden" id="loginHost" th:value="${loginHost}">
 <input class="hidden" id="username" th:value="${username}">
+<input class="hidden" id="tid" th:value="${tid}">
 <input class="hidden" id="time" th:value="${time}">
 <input class="hidden" id="sign" th:value="${sign}">
     <div class="container-fluid" >
@@ -31,11 +32,29 @@
              style=" background-color: rgba(26,26,26,0.5);">
 
         </div>
-        <div class="row"  style="position: relative;">
+        <div class="row"  style="position: relative;" th:if="${templateType=='user-main'}">
             <div th:include="body :: copy" >
 
             </div>
             <div id="operator-panel" class="col-sm-7"  th:include="operator :: copy">
+
+            </div>
+        </div>
+
+        <div class="row"  style="position: relative;" th:if="${templateType=='user-template'}">
+            <div th:include="user-template :: copy" >
+
+            </div>
+        </div>
+
+        <div class="row"  style="position: relative;" th:if="${templateType=='public-template'}">
+            <div th:include="publish :: copy" >
+
+            </div>
+        </div>
+
+        <div class="row"  style="position: relative;" th:if="${templateType=='history-template'}">
+            <div th:include="history-template :: copy" >
 
             </div>
         </div>

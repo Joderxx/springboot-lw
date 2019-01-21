@@ -9,14 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/templates")
-public class UseTemplateController extends BaseController {
+public class TemplateController extends BaseController {
 
     /**
      * 运用某个模板
      * @return
      */
-    @GetMapping("/use/{id}")
+    @GetMapping("/use")
     public String useTemplate(){
+        return "";
+    }
+
+
+    /**
+     * 查看模板结果
+     * @return
+     */
+    @GetMapping("/result")
+    public String getResult(){
         return "";
     }
 }

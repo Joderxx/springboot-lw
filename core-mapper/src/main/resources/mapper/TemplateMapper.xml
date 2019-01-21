@@ -8,27 +8,59 @@
         <result property="description" column="description" />
         <result property="createTime" column="create_time" />
         <result property="publish" column="publish" />
-        <result property="uid" column="uid" />
+        <association property="user" column="uid" resultMap="springboot.lw.core.mapper.dao.UserMapper.User" />
     </resultMap>
+
+    <sql id="tables">
+        template as t,`user` as u
+    </sql>
+
+    <sql id="select-field">
+        tid,`name`,description,t.create_time,publish,username,u.id
+    </sql>
+
+    <sql id="concat-condition">
+        u.id=t.uid
+    </sql>
+
     <insert id="add" useGeneratedKeys="true" keyProperty="tid">
         insert into template(name, create_time, publish, description, uid)
         values (#{name},#{createTime},#{publish},#{description},#{uid})
     </insert>
+    <update id="update">
+        update template set
+        <trim prefixOverrides=",">
+            <if test="name != null">
+              ,`name`=#{name}
+            </if>
+            <if test="description!=null">
+                ,description=#{description}
+            </if>
+            <if test="publish!=null">
+                ,publish=#{publish}
+            </if>
+        </trim>
+        where tid=#{tid}
+    </update>
 
     <delete id="deleteById" parameterType="Long">
         delete from template where tid=#{tid} and uid = #{userId}
     </delete>
 
     <select id="getById" resultType="springboot.lw.core.model.Template">
-        select * from template where tid=#{tid} and publish=1
+        select <include refid="select-field"/> from <include refid="tables"/> where tid=#{tid} and publish=1
+        and <include refid="concat-condition"/>
     </select>
     <select id="getByUserIdAndId" resultType="springboot.lw.core.model.Template">
-        select * from  template where tid=#{tid} and uid = #{userId}
+        select <include refid="select-field"/> from  <include refid="tables"/> where tid=#{tid} and t.uid = #{userId}
+        and <include refid="concat-condition"/>
     </select>
     <select id="getUserTemplates" resultType="springboot.lw.core.model.Template">
-        select * from  template where uid = #{userId}
+        select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
+        and <include refid="concat-condition"/>
     </select>
     <select id="getPublicTemplate" resultType="springboot.lw.core.model.Template">
-        select * from  template where uid = #{userId} and publish=1
+        select <include refid="select-field"/> from  <include refid="tables"/> where uid = #{userId} and publish=1
+        and <include refid="concat-condition"/>
     </select>
 </mapper>

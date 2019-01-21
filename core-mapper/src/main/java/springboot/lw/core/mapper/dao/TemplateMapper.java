@@ -56,4 +56,11 @@ public interface TemplateMapper {
      * @return
      */
     List<Template> getPublicTemplate();
+
+    /**
+     * 更新模板
+     * @param template
+     * @return
+     */
+    int update(Template template);
 }

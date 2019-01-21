@@ -26,7 +26,7 @@ public class MainController extends BaseController{
                        @RequestParam(value = "time",defaultValue = "0") long time,
                        @RequestParam(value = "sign",defaultValue = "") String sign,
                        Model model){
-
+        model.addAttribute("templateType","user-main");
         return "panel";
     }
 }

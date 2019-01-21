@@ -30,6 +30,14 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public boolean updateTemplatePublish(long tid,boolean publish) {
+        Template template = new Template();
+        template.setTid(tid);
+        template.setPublish(publish);
+        return templateMapper.update(template)>0;
+    }
+
+    @Override
     public List<Template> getUserTemplate(long userId) {
         return templateMapper.getUserTemplates(userId);
     }
@@ -42,6 +50,11 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Template getTemplateByUidAndTid(long userId, long tid) {
         return templateMapper.getByUserIdAndId(userId,tid);
+    }
+
+    @Override
+    public List<Template> getPublicTemplate() {
+        return templateMapper.getPublicTemplate();
     }
 
     @Override

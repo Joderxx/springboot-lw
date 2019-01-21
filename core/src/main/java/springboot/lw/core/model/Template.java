@@ -1,5 +1,6 @@
 package springboot.lw.core.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -33,7 +34,7 @@ public class Template implements Serializable {
     private String description;
 
     /**
-     * 对应user id
+     * 对应user
      */
-    private long uid;
+    private User user;
 }

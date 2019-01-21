@@ -15,6 +15,7 @@ import springboot.lw.core.util.Md5Util;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 @CrossOrigin
 @Controller
@@ -33,24 +34,11 @@ public class AvatarController {
                           @RequestParam(value = "sign",defaultValue = "") String sign,
                           HttpServletResponse response){
         byte[] data = null;
-        if (StringUtils.isEmpty(sign)||StringUtils.isEmpty(account)||time==0){
+        UserImage image = avatarService.getAvatar(account);
+        if (image==null){
             data = getDefault();
-        }
-        //半小时
-        else if (System.currentTimeMillis()-time>1800000){
-            data = getDefault();
-        }
-        String md5 = Md5Util.md5("account="+account+"&time="+time);
-        if (!md5.equals(sign)){
-            data = getDefault();
-        }
-        if (data ==null){
-            UserImage image = avatarService.getAvatar(account);
-            if (image==null){
-                data = getDefault();
-            }else {
-                data = image.getImage();
-            }
+        }else {
+            data = image.getImage();
         }
         try {
             response.setContentType("image/jpeg");
@@ -64,20 +52,7 @@ public class AvatarController {
     @ResponseBody
     @PostMapping("/avatar")
     public String updateAvatar(@RequestParam(value = "account",defaultValue = "") String account,
-                               @RequestParam(value = "time",defaultValue = "0") long time,
-                               @RequestParam(value = "sign",defaultValue = "") String sign,
-                             @RequestParam("reportFile") MultipartFile file){
-        if (StringUtils.isEmpty(sign)||StringUtils.isEmpty(account)||time==0){
-            return "0";
-        }
-        //半小时
-        else if (System.currentTimeMillis()-time>1800000){
-            return "0";
-        }
-        String md5 = Md5Util.md5("account="+account+"&time="+time);
-        if (!md5.equals(sign)){
-            return "0";
-        }
+                               @RequestParam("reportFile") MultipartFile file){
 
         try {
             if (file.getBytes()!=null&&file.getBytes().length>0){
@@ -92,8 +67,9 @@ public class AvatarController {
 
     private byte[] getDefault(){
         String path = this.getClass().getResource("/static").getPath();
-        File file = new File(path,paramConfig.getProperty("default.avatar"));
         try {
+            path = URLDecoder.decode(path,"UTF-8");
+            File file = new File(path,paramConfig.getProperty("default.avatar"));
             return FileCopyUtils.copyToByteArray(file);
         } catch (IOException e) {
             e.printStackTrace();
