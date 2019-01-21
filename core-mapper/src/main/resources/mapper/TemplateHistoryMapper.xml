@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="springboot.lw.core.mapper.dao.TemplateHistoryMapper">
+
+    <resultMap id="TemplateHistory" type="springboot.lw.core.model.TemplateHistory">
+        <id property="hid" column="hid"/>
+        <result property="content" column="content"/>
+        <result property="modifiedTime" column="modified_time" />
+        <result property="success" column="success" />
+        <association property="template" resultMap="springboot.lw.core.mapper.dao.TemplateMapper.Template" />
+    </resultMap>
+
+    <sql id="select-filed">
+        hid,content,h.tid,modified_time,success,create_time,publish,uid,`name`
+    </sql>
+
+    <sql id="double-table">
+        template_history as h,template as t
+    </sql>
+
+    <sql id="concat-sql">
+         h.tid=t.tid
+    </sql>
+
+    <insert id="add">
+        insert into template_history(tid, success, modified_time, content)
+        values(#{template.tid},#{success},#{modifiedTime},#{content})
+    </insert>
+    <select id="getByTid" resultType="springboot.lw.core.model.TemplateHistory">
+        select
+          <include refid="select-filed" />
+        from <include refid="double-table"/> where h.tid = #{tid} and <include refid="concat-sql"/>
+    </select>
+    <select id="getLast" resultType="springboot.lw.core.model.TemplateHistory">
+        select
+          <include refid="select-filed" />
+        from <include refid="double-table"/> where h.tid = #{tid} and <include refid="concat-sql"/> order by modified_time desc limit 1
+    </select>
+    <select id="getLastSuccess" resultType="springboot.lw.core.model.TemplateHistory">
+        select
+          <include refid="select-filed" />
+        from <include refid="double-table"/> where h.tid = #{tid} and <include refid="concat-sql"/> and success=1 order by modified_time desc limit 1
+    </select>
+    <select id="getById" resultType="springboot.lw.core.model.TemplateHistory">
+        select
+          <include refid="select-filed" />
+        from <include refid="double-table"/> where hid = #{hid} and <include refid="concat-sql"/>
+    </select>
+    <select id="getByUserLast" resultType="springboot.lw.core.model.TemplateHistory">
+        select
+        <include refid="select-filed" />
+        from <include refid="double-table"/>,`user` as u where <include refid="concat-sql"/> and u.id=t.uid and u.id=#{userId} order by modified_time desc limit 1
+    </select>
+
+</mapper>

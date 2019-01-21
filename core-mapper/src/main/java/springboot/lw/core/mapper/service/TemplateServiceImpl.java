@@ -7,6 +7,8 @@ import springboot.lw.core.mapper.dao.TemplateHistoryMapper;
 import springboot.lw.core.mapper.dao.TemplateMapper;
 import springboot.lw.core.mapper.dao.TemplateResultMapper;
 import springboot.lw.core.model.Template;
+import springboot.lw.core.model.TemplateHistory;
+import springboot.lw.core.model.TemplateResult;
 import springboot.lw.core.service.TemplateService;
 
 import java.util.List;
@@ -23,17 +25,48 @@ public class TemplateServiceImpl implements TemplateService {
     private TemplateResultMapper templateResultMapper;
 
     @Override
-    public boolean save(Template template) {
-        return false;
+    public boolean saveTemplate(Template template) {
+        return templateMapper.add(template)>0;
     }
 
     @Override
     public List<Template> getUserTemplate(long userId) {
-        return null;
+        return templateMapper.getUserTemplates(userId);
     }
 
     @Override
     public Template getTemplateById(long tid) {
-        return null;
+        return templateMapper.getById(tid);
+    }
+
+    @Override
+    public Template getTemplateByUidAndTid(long userId, long tid) {
+        return templateMapper.getByUserIdAndId(userId,tid);
+    }
+
+    @Override
+    public boolean addResult(TemplateResult result) {
+        return templateResultMapper.add(result)>0;
+    }
+
+
+    @Override
+    public TemplateResult getResultById(long hid) {
+        return templateResultMapper.getById(hid);
+    }
+
+    @Override
+    public TemplateResult getResultLastSuccess(long tid) {
+        return templateResultMapper.getLastSuccess(tid);
+    }
+
+    @Override
+    public TemplateResult getResultLast(long tid) {
+        return templateResultMapper.getLastSuccess(tid);
+    }
+
+    @Override
+    public boolean addHistory(TemplateHistory history) {
+        return false;
     }
 }

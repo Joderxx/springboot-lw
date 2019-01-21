@@ -22,4 +22,6 @@ public interface TemplateHistoryMapper {
     TemplateHistory getLastSuccess(long tid);
 
     TemplateHistory getById(long hid);
+
+    TemplateHistory getByUserLast(long userId);
 }

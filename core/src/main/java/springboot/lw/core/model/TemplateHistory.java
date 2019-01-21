@@ -25,7 +25,7 @@ public class TemplateHistory implements Serializable {
     /**
      * 是否成功
      */
-    private boolean sucess;
+    private boolean success;
     /**
      * 对应Template
      */

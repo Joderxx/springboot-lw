@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="springboot.lw.core.mapper.dao.TemplateResultMapper">
+
+    <resultMap id="TemplateResult" type="springboot.lw.core.model.TemplateResult">
+        <id property="hid" column="hid"/>
+        <result property="result" column="result" />
+    </resultMap>
+
+    <sql id="tables">
+        template_result as r,template_history as h,template as t
+    </sql>
+
+    <sql id="concat">
+        r.hid=h.hid and t.tid=h.tid
+    </sql>
+
+    <insert id="add">
+        insert into template_result(result) values (#{result})
+    </insert>
+
+    <select id="getById" resultType="springboot.lw.core.model.TemplateResult">
+        select result from template_result where hid=#{hid}
+    </select>
+
+    <select id="getLastSuccess" resultType="springboot.lw.core.model.TemplateResult">
+        select result from <include refid="tables"/> where <include refid="concat"/>
+        and t.tid=#{tId} and h.success=1 order by modified_time desc limit 1
+    </select>
+
+    <select id="getLast" resultType="springboot.lw.core.model.TemplateResult">
+        select result from <include refid="tables"/> where <include refid="concat"/>
+        and t.tid=#{tId} order by modified_time desc limit 1
+    </select>
+
+
+</mapper>
