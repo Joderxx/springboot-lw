@@ -58,6 +58,11 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public Template getTemplateLastEdit(long userId) {
+        return templateMapper.getLastEdit(userId);
+    }
+
+    @Override
     public boolean addResult(TemplateResult result) {
         return templateResultMapper.add(result)>0;
     }

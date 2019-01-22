@@ -115,5 +115,26 @@ $(function () {
        }
 
        console.log(request)
-   }); 
+   });
+
+   $("#publish-btn").click(function () {
+       $("#publish-btn").attr('value',$("#publish-btn").val()=='false');
+       $("#publish-text").text($("#publish-text").text()=='公开'?'未公开':'公开');
+       var data = {
+           account:$("#account").val(),
+           time: $("#time").val(),
+           tid: $("#tid").val(),
+           sign: $("#sign").val(),
+           type: $("#publish-btn").val(),
+       }
+       $.ajax({
+           type: 'post',
+           async: false,
+           url: "/user/templates/publish",
+           data: data,
+           success: function (data) {
+               $("body").html(data)
+           }
+       })
+   })
 });

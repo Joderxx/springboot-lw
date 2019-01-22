@@ -50,6 +50,7 @@ public interface TemplateService {
      */
     Template getTemplateByUidAndTid(long userId,long tid);
 
+    Template getTemplateLastEdit(long userId);
     /**
      * 添加结果
      * @param result

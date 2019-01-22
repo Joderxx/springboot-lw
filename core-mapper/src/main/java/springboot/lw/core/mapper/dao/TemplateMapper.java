@@ -63,4 +63,6 @@ public interface TemplateMapper {
      * @return
      */
     int update(Template template);
+
+    Template getLastEdit(long userId);
 }

@@ -24,8 +24,8 @@
     </sql>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="tid">
-        insert into template(name, create_time, publish, description, uid)
-        values (#{name},#{createTime},#{publish},#{description},#{uid})
+        insert into template(name, create_time,modified_time, publish, description, uid)
+        values (#{name},#{createTime},#{modifiedTime},#{publish},#{description},#{user.id})
     </insert>
     <update id="update">
         update template set
@@ -62,5 +62,9 @@
     <select id="getPublicTemplate" resultType="springboot.lw.core.model.Template">
         select <include refid="select-field"/> from  <include refid="tables"/> where uid = #{userId} and publish=1
         and <include refid="concat-condition"/>
+    </select>
+    <select id="getLastEdit" resultType="springboot.lw.core.model.Template">
+        select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
+        and <include refid="concat-condition"/> order by modified_time desc limit 1
     </select>
 </mapper>

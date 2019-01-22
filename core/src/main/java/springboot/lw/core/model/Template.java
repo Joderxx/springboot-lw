@@ -23,6 +23,11 @@ public class Template implements Serializable {
      * 创建时间
      */
     private long createTime;
+
+    /**
+     * 修改时间
+     */
+    private long modifiedTime;
     /**
      * 是否公开
      */

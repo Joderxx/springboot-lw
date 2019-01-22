@@ -6,7 +6,7 @@
         <div class="col-sm-10" >
             <ul class="nav nav-tabs" th:if="${account!=null}">
                 <li role="presentation">
-                    <a th:href="@{'/user/templates'(sign=${sign},time=${time},account=${account},tid=${tid})}">主页</a>
+                    <a th:href="@{'/user/main'(sign=${sign},time=${time},account=${account},tid=${tid})}">主页</a>
                 </li>
                 <li role="presentation"><a th:href="@{'/user/templates'(sign=${sign},time=${time},account=${account},tid=${tid})}">用户模板</a></li>
                 <li role="presentation"><a th:href="@{'/user/public'(sign=${sign},time=${time},account=${account},tid=${tid})}">公开模板</a></li>
@@ -19,6 +19,9 @@
                         <li role="presentation"><a th:href="@{${loginHost}+'/changePassword'}">修改密码</a></li>
                         <li role="presentation"><a th:href="@{${loginHost}+'/login'}">重新登录</a></li>
                     </ul>
+                </li>
+                <li role="presentation">
+                    <a data-toggle="modal" data-target="#createTemplate">新建模板</a>
                 </li>
             </ul>
 
@@ -97,12 +100,60 @@
         </div>
     </div>
 
+    <div class="modal fade" id="createTemplate" tabindex="-1" role="dialog" aria-labelledby="createTemplate" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" >新增模板</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="margin-left: 20px;margin-right: 20px">
+                        <label class="control-label">模板名称</label>
+                        <input class="form-control" id="create-template-name">
+                    </div>
+                    <div class="row" style="margin-left: 20px;margin-right: 20px">
+                        <label class="control-label">模板描述</label>
+                        <textarea class="form-control" rows="5" cols="10" id="create-template-description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="add-btn">增加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        $("#userCenter").mouseover(function () {
-            $("#userCenter").attr("class","dropdown open")
-        }).mouseout(function () {
-            $("#userCenter").attr("class","dropdown")
-        })
+        $(function () {
+            $("#add-btn").click(function () {
+                var data = {
+                    account:$("#account").val(),
+                    time: $("#time").val(),
+                    tid: $("#tid").val(),
+                    sign: $("#sign").val(),
+                    templateName: $("#create-template-name").val(),
+                    description: $("#create-template-description").val()
+                }
+                $.ajax({
+                    type: 'post',
+                    async: false,
+                    url: "/user/templates/create",
+                    data: data,
+                    success: function (data) {
+                        $("body").html(data)
+                    }
+                })
+            });
+
+            $("#userCenter").mouseover(function () {
+                $("#userCenter").attr("class","dropdown open")
+            }).mouseout(function () {
+                $("#userCenter").attr("class","dropdown")
+            });
+        });
+
         var FileInput = function () {
             var oFile = new Object();
 

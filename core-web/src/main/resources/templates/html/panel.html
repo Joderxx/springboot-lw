@@ -14,6 +14,7 @@
     <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/css/fileinput.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/limonte-sweetalert2/7.33.1/sweetalert2.css" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/checkbox.css" rel="stylesheet">
     <script src="/js/templete.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/panel.js"></script>
@@ -33,6 +34,11 @@
 
         </div>
         <div class="row"  style="position: relative;" th:if="${templateType=='user-main'}">
+            <div th:include="body :: copy" >
+
+            </div>
+        </div>
+        <div class="row"  style="position: relative;" th:if="${templateType=='user-operator'}">
             <div th:include="body :: copy" >
 
             </div>

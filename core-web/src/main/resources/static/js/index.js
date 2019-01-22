@@ -191,3 +191,5 @@ function hide(s) {
 function show(s) {
     $("#"+s+" div:nth-child(1) div.col-sm-10 form div:nth-child(3) div.hidden").attr('class','show')
 }
+
+

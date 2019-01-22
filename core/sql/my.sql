@@ -1,84 +1,81 @@
 /*
- Navicat Premium Data Transfer
+Navicat MySQL Data Transfer
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 50724
- Source Host           : localhost:3306
- Source Schema         : my
+Source Server         : root
+Source Server Version : 50724
+Source Host           : localhost:3306
+Source Database       : my
 
- Target Server Type    : MySQL
- Target Server Version : 50724
- File Encoding         : 65001
+Target Server Type    : MYSQL
+Target Server Version : 50724
+File Encoding         : 65001
 
- Date: 16/01/2019 22:38:20
+Date: 2019-01-22 09:39:09
 */
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
 -- Table structure for template
 -- ----------------------------
 DROP TABLE IF EXISTS `template`;
-CREATE TABLE `template`  (
-  `tid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+CREATE TABLE `template` (
+  `tid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
   `create_time` bigint(20) NOT NULL,
+  `modified_time` bigint(20) DEFAULT NULL,
   `publish` tinyint(1) NOT NULL,
-  `description` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `uid` bigint(20) UNSIGNED NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `uid` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`tid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for template_history
 -- ----------------------------
 DROP TABLE IF EXISTS `template_history`;
-CREATE TABLE `template_history`  (
-  `hid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `tid` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE `template_history` (
+  `hid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tid` bigint(20) unsigned NOT NULL,
   `success` tinyint(1) NOT NULL,
   `modified_time` bigint(20) NOT NULL,
-  `content` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `content` text,
   PRIMARY KEY (`hid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for template_result
 -- ----------------------------
 DROP TABLE IF EXISTS `template_result`;
-CREATE TABLE `template_result`  (
-  `hid` bigint(20) UNSIGNED NOT NULL,
-  `result` longtext CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+CREATE TABLE `template_result` (
+  `hid` bigint(20) unsigned NOT NULL,
+  `result` longtext,
   PRIMARY KEY (`hid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `account` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `username` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `account` varchar(20) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `create_time` bigint(20) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Table structure for user_image
 -- ----------------------------
 DROP TABLE IF EXISTS `user_image`;
-CREATE TABLE `user_image`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `account` varchar(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `image` mediumblob NULL,
-  `mode` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `create_time` bigint(20) NULL DEFAULT NULL,
-  `modified_time` bigint(20) NULL DEFAULT NULL,
+CREATE TABLE `user_image` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `account` varchar(20) DEFAULT NULL,
+  `image` mediumblob,
+  `mode` varchar(10) DEFAULT NULL,
+  `create_time` bigint(20) DEFAULT NULL,
+  `modified_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;

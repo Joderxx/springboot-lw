@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import springboot.lw.core.model.Template;
+import springboot.lw.core.model.User;
+import springboot.lw.core.service.TemplateService;
 import springboot.lw.core.service.UserService;
 import springboot.lw.coreweb.config.ParamConfig;
 
@@ -20,13 +23,23 @@ public class MainController extends BaseController{
     private ParamConfig paramConfig;
     @Reference
     private UserService userService;
+    @Reference
+    private TemplateService templateService;
 
     @GetMapping("/main")
     public String main(@RequestParam(value = "account",defaultValue = "") String account,
-                       @RequestParam(value = "time",defaultValue = "0") long time,
-                       @RequestParam(value = "sign",defaultValue = "") String sign,
                        Model model){
-        model.addAttribute("templateType","user-main");
+        User user = userService.getUserByAccount(account);
+        if (user==null){
+            return "404";
+        }
+        Template template = templateService.getTemplateLastEdit(user.getId());
+        if (template==null){
+            model.addAttribute("templateType","user-main");
+        }else {
+            model.addAttribute("template",template);
+            model.addAttribute("templateType","user-operator");
+        }
         return "panel";
     }
 }
