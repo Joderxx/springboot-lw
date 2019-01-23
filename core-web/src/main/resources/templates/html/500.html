@@ -15,12 +15,12 @@
 </head>
 <body style="background-color: #d1d5d0">
     <div style="text-align: center;padding-top: 10%">
-        <strong style="font-size: 100px;">
-            500
-        </strong>
+
         <div>
             <p id="text-text" style="font-size: 40px;">
-
+                <strong style="font-size: 100px;">
+                    500
+                </strong>
             </p>
         </div>
         <div style="font-size: 20px">
@@ -38,17 +38,26 @@
             arr[e] = 0
             pos[e] = 1
         }
+        var t1 = 1,t2=700
         setInterval(function () {
             for (var e = 0;e<s.length;e++){
                 if (e>=s.length){
                     e=0
                 }
                 $(".cls-text-" + e).attr("style", "bottom: " + arr[e] + "px");
-                arr[e] = arr[e] + Math.random()*10*pos[e];
-                if (arr[e] >= 30||arr[e]<=0)
+                arr[e] = arr[e] + Math.random()*t1*pos[e];
+                if (arr[e] >= 100){
+                    arr[e] = 100
                     pos[e] = -1*pos[e]
+                }else if (arr[e]<=0){
+                    pos[e] = -1*pos[e]
+                    arr[e] = 0
+                }
             }
-        },500);
+            t1 = Math.random()*(700-t2);
+            t2 = t2-10;
+            t2 = t2>10?t2:10;
+        },t2);
 
     });
 
