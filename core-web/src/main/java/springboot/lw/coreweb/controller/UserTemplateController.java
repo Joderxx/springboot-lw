@@ -12,6 +12,8 @@ import springboot.lw.core.service.UserService;
 import springboot.lw.core.util.Md5Util;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -40,6 +42,7 @@ public class UserTemplateController extends BaseController {
         template.setName(name);
         template.setPublish(false);
         template.setCreateTime(System.currentTimeMillis());
+        template.setModifiedTime(System.currentTimeMillis());
         template.setDescription(description);
         template.setUser(user);
         templateService.saveTemplate(template);
@@ -59,6 +62,15 @@ public class UserTemplateController extends BaseController {
         if (user==null){
             return "404";
         }else {
+            List<Map<String, Object>> userTemplates = templateService.getUserTemplates(user.getId());
+            long time = System.currentTimeMillis();
+            for (Map<String,Object> map:userTemplates){
+                String md5 = Md5Util.md5(String.format("account=%s&tid=%s&time=%s",account,map.get("tid"),time));
+                map.put("sign",md5);
+
+            }
+            model.addAttribute("time",time);
+            model.addAttribute("templateList",userTemplates);
             model.addAttribute("templateType","user-template");
         }
         return "panel";

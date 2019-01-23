@@ -1,11 +1,10 @@
 package springboot.lw.coreweb.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import springboot.lw.core.model.ExcuteParameter;
 import springboot.lw.core.model.RequestParam;
 import springboot.lw.core.model.Result;
@@ -18,7 +17,7 @@ import springboot.lw.core.service.Excute;
 @RequestMapping("/user/crawl")
 public class DealController extends BaseController{
 
-    @Autowired
+    @Reference
     private Excute excute;
 
     @PostMapping("/doProcess")

@@ -8,7 +8,7 @@
                 <li role="presentation">
                     <a th:href="@{'/user/main'(sign=${sign},time=${time},account=${account},tid=${tid})}">主页</a>
                 </li>
-                <li role="presentation"><a th:href="@{'/user/templates'(sign=${sign},time=${time},account=${account},tid=${tid})}">用户模板</a></li>
+                <li role="presentation"><a th:href="@{'/user/templates/private'(sign=${sign},time=${time},account=${account},tid=${tid})}">用户模板</a></li>
                 <li role="presentation"><a th:href="@{'/user/public'(sign=${sign},time=${time},account=${account},tid=${tid})}">公开模板</a></li>
                 <li id="userCenter" role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">

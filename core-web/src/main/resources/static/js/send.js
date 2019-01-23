@@ -133,7 +133,10 @@ $(function () {
            url: "/user/templates/publish",
            data: data,
            success: function (data) {
-               $("body").html(data)
+               if (data.state==0){
+                   $("#publish-btn").attr('value',$("#publish-btn").val()=='false');
+                   $("#publish-text").text($("#publish-text").text()=='公开'?'未公开':'公开');
+               }
            }
        })
    })

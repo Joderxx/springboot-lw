@@ -1,12 +1,14 @@
-package springboot.lw.core.service.imp;
+package springboot.lw.core.mapper.service;
 
 
-import org.jsoup.*;
+import com.alibaba.dubbo.config.annotation.Service;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import springboot.lw.core.exception.ParameterException;
 import springboot.lw.core.service.Crawl;
@@ -14,8 +16,9 @@ import springboot.lw.core.service.Crawl;
 import java.io.IOException;
 import java.util.Map;
 
-@Service
-@PropertySource("classpath*: application.properties")
+@Service(interfaceClass = Crawl.class)
+@Component
+@PropertySource("classpath:application.properties")
 public class CrawlImp implements Crawl {
 
     @Value("${request.method}")

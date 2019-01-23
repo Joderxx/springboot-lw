@@ -50,15 +50,25 @@ public class LoginInterception implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         String account = request.getParameter("account");
-        String tid = request.getParameter("tid");
+        String tid = null;
+
+        if (modelAndView!=null&&modelAndView.getModel().containsKey("tid")){
+            tid = String.valueOf(modelAndView.getModel().get("tid"));
+        }
         if (StringUtils.isEmpty(tid)){
-            tid = "0";
+            tid = request.getParameter("tid");
+            if (StringUtils.isEmpty(tid)){
+                tid = "0";
+            }
+        }
+        long time =System.currentTimeMillis();
+        if (modelAndView!=null&&modelAndView.getModel().containsKey("time")){
+            time = (long) modelAndView.getModel().get("time");
         }
         request.setAttribute("loginHost",paramConfig.getProperty("login.host"));
         request.setAttribute("mainHost",paramConfig.getProperty("main.host"));
         User user = userService.getUserByAccount(account);
         if (user!=null){
-            long time =System.currentTimeMillis();
             String source = String.format("account=%s&tid=%s&time=%s",account,tid,time);
             String sign = Md5Util.md5(source);
             request.setAttribute("account",account);

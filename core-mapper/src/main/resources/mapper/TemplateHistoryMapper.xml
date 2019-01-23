@@ -12,16 +12,28 @@
         <association property="template" resultMap="springboot.lw.core.mapper.dao.TemplateMapper.Template" />
     </resultMap>
 
-    <sql id="select-filed">
-        hid,content,h.tid,modified_time,success,create_time,publish,uid,`name`
+    <sql id="double-select-field">
+        hid,content,h.tid,h.modified_time,success,h.create_time,publish,`name`
+    </sql>
+
+    <sql id="three-select-field">
+        hid,content,t.tid,h.modified_time,success,publish,`name`,u.username,u.id
     </sql>
 
     <sql id="double-table">
         template_history as h,template as t
     </sql>
 
-    <sql id="concat-sql">
+    <sql id="double-concat-sql">
          h.tid=t.tid
+    </sql>
+
+    <sql id="three-table">
+        template_history as h,template as t,`user` as u
+    </sql>
+
+    <sql id="three-concat-sql">
+         h.tid=t.tid and u.id=t.uid
     </sql>
 
     <insert id="add">
@@ -30,28 +42,29 @@
     </insert>
     <select id="getByTid" resultType="springboot.lw.core.model.TemplateHistory">
         select
-          <include refid="select-filed" />
-        from <include refid="double-table"/> where h.tid = #{tid} and <include refid="concat-sql"/>
+          <include refid="three-select-field" />
+        from <include refid="three-table"/> where h.tid = #{tid} and <include refid="three-concat-sql"/>
     </select>
     <select id="getLast" resultType="springboot.lw.core.model.TemplateHistory">
         select
-          <include refid="select-filed" />
-        from <include refid="double-table"/> where h.tid = #{tid} and <include refid="concat-sql"/> order by modified_time desc limit 1
+        <include refid="three-select-field" />
+        from <include refid="three-table"/> where h.tid = #{tid} and <include refid="three-concat-sql"/> order by h.modified_time desc limit 1
     </select>
     <select id="getLastSuccess" resultType="springboot.lw.core.model.TemplateHistory">
         select
-          <include refid="select-filed" />
-        from <include refid="double-table"/> where h.tid = #{tid} and <include refid="concat-sql"/> and success=1 order by modified_time desc limit 1
+        <include refid="three-select-field" />
+        from <include refid="three-table"/> where h.tid = #{tid} and <include refid="three-concat-sql"/> and success=1 order by h.modified_time desc limit 1
     </select>
     <select id="getById" resultType="springboot.lw.core.model.TemplateHistory">
         select
-          <include refid="select-filed" />
-        from <include refid="double-table"/> where hid = #{hid} and <include refid="concat-sql"/>
+          <include refid="double-select-field" />
+        from <include refid="double-table"/> where hid = #{hid} and <include refid="double-concat-sql"/>
     </select>
     <select id="getByUserLast" resultType="springboot.lw.core.model.TemplateHistory">
         select
-        <include refid="select-filed" />
-        from <include refid="double-table"/>,`user` as u where <include refid="concat-sql"/> and u.id=t.uid and u.id=#{userId} order by modified_time desc limit 1
+        <include refid="double-select-field" />
+        from <include refid="three-table"/>
+        where <include refid="three-concat-sql"/> and u.id=#{userId} order by h.modified_time desc limit 1
     </select>
 
 </mapper>

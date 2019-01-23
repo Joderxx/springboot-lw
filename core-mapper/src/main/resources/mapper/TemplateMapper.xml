@@ -6,6 +6,7 @@
         <id property="tid" column="tid" />
         <result property="name" column="name" />
         <result property="description" column="description" />
+        <result property="modifiedTime" column="modified_time" />
         <result property="createTime" column="create_time" />
         <result property="publish" column="publish" />
         <association property="user" column="uid" resultMap="springboot.lw.core.mapper.dao.UserMapper.User" />
@@ -16,7 +17,7 @@
     </sql>
 
     <sql id="select-field">
-        tid,`name`,description,t.create_time,publish,username,u.id
+        tid,`name`,description,t.create_time,t.modified_time,publish,username,u.id
     </sql>
 
     <sql id="concat-condition">
@@ -48,9 +49,23 @@
     </delete>
 
     <select id="getById" resultType="springboot.lw.core.model.Template">
+        select <include refid="select-field"/> from <include refid="tables"/> where tid=#{tid}
+        and <include refid="concat-condition"/>
+    </select>
+
+    <select id="getDetailById" resultType="java.util.Map">
+        select t1.tid,`name`,description,create_time,modified_time,publish,username,id,success
+        from ((select <include refid="select-field"/> from  <include refid="tables"/> where tid=#{tid}
+        and <include refid="concat-condition"/> ) t1 left join
+        (select tid,success,content from template_history order by modified_time desc limit 1) t2
+        on t1.tid=t2.tid)
+    </select>
+
+    <select id="getPublicById" resultType="springboot.lw.core.model.Template">
         select <include refid="select-field"/> from <include refid="tables"/> where tid=#{tid} and publish=1
         and <include refid="concat-condition"/>
     </select>
+
     <select id="getByUserIdAndId" resultType="springboot.lw.core.model.Template">
         select <include refid="select-field"/> from  <include refid="tables"/> where tid=#{tid} and t.uid = #{userId}
         and <include refid="concat-condition"/>
@@ -63,8 +78,17 @@
         select <include refid="select-field"/> from  <include refid="tables"/> where uid = #{userId} and publish=1
         and <include refid="concat-condition"/>
     </select>
-    <select id="getLastEdit" resultType="springboot.lw.core.model.Template">
-        select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
-        and <include refid="concat-condition"/> order by modified_time desc limit 1
+    <select id="getLastEdit" resultType="java.util.Map">
+        select * from ((select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
+        and <include refid="concat-condition"/> order by modified_time desc limit 1) t1 left join
+        (select tid,success,content from template_history order by modified_time desc limit 1) t2
+        on t1.tid=t2.tid)
+    </select>
+    <select id="getTemplateByUId" resultType="java.util.Map">
+        select t1.tid,`name`,description,create_time,modified_time,publish,username,id,success
+        from ((select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
+        and <include refid="concat-condition"/>) t1 left join
+        (select tid,success from template_history order by modified_time desc limit 1) t2
+        on t1.tid=t2.tid)
     </select>
 </mapper>

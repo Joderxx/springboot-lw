@@ -5,6 +5,7 @@ import springboot.lw.core.model.TemplateHistory;
 import springboot.lw.core.model.TemplateResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiejiedun on 2019/1/17
@@ -42,6 +43,8 @@ public interface TemplateService {
      */
     Template getTemplateById(long tid);
 
+    Template getTemplateDetailById(long tid);
+
     /**
      * 得到用户模板
      * @param userId
@@ -51,6 +54,8 @@ public interface TemplateService {
     Template getTemplateByUidAndTid(long userId,long tid);
 
     Template getTemplateLastEdit(long userId);
+
+    List<Map<String, Object>> getUserTemplates(long userId);
     /**
      * 添加结果
      * @param result
@@ -82,5 +87,20 @@ public interface TemplateService {
 
     boolean addHistory(TemplateHistory history);
 
+    /**
+     * 获得模板历史记录
+     * @param tid
+     * @return
+     */
+    List<TemplateHistory> getHistoryByTid(long tid);
+
+    /**
+     * 获得模板历史记录最后成功那个
+     * @param tid
+     * @return
+     */
+    TemplateHistory getHistorySuccessByTid(long tid);
+
+    TemplateHistory getHistoryLastByTid(long tid);
 
 }

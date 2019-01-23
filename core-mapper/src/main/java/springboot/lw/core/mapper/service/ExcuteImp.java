@@ -1,10 +1,11 @@
-package springboot.lw.core.service.imp;
+package springboot.lw.core.mapper.service;
 
 
+import com.alibaba.dubbo.config.annotation.Service;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import springboot.lw.core.model.ExcuteParameter;
 import springboot.lw.core.model.FilterParam;
 import springboot.lw.core.model.RequestParam;
@@ -12,7 +13,8 @@ import springboot.lw.core.model.Result;
 import springboot.lw.core.service.Crawl;
 import springboot.lw.core.service.Excute;
 
-@Service
+@Service(interfaceClass = Excute.class)
+@Component
 public class ExcuteImp implements Excute {
 
     @Autowired

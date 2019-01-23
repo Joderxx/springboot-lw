@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>500</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        span{
+            display: inline-block;
+            position: relative;
+            height: 100px;
+        }
+    </style>
+</head>
+<body style="background-color: #d1d5d0">
+    <div style="text-align: center;padding-top: 10%">
+        <strong style="font-size: 100px;">
+            500
+        </strong>
+        <div>
+            <p id="text-text" style="font-size: 40px;">
+
+            </p>
+        </div>
+        <div style="font-size: 20px">
+            <a href="javascript: history.back(-1)">返回</a>
+        </div>
+    </div>
+</body>
+<script>
+    $(function () {
+        var s = "你太厉害了，服务器都奔溃了...";
+        var arr = []
+        var pos = []
+        for(var e in s){
+            $("#text-text").append("<span class='cls-text-"+e+"'>"+s[e]+"</span>");
+            arr[e] = 0
+            pos[e] = 1
+        }
+        setInterval(function () {
+            for (var e = 0;e<s.length;e++){
+                if (e>=s.length){
+                    e=0
+                }
+                $(".cls-text-" + e).attr("style", "bottom: " + arr[e] + "px");
+                arr[e] = arr[e] + Math.random()*10*pos[e];
+                if (arr[e] >= 30||arr[e]<=0)
+                    pos[e] = -1*pos[e]
+            }
+        },500);
+
+    });
+
+</script>
+</html>

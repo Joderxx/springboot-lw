@@ -19,31 +19,52 @@
             <!-- Default panel contents -->
             <div class="panel-heading">模板</div>
             <div class="panel-body" >
+
                 <table class="table table-bordered table-hover " style="border-radius: 10px">
                     <thead>
-                        <tr >
-                            <th>ID</th>
-                            <th>名称</th>
-                            <th>创建时间</th>
-                            <th>最后修改时间</th>
-                            <th>最后执行状态</th>
-                            <th>历史记录</th>
-                        </tr>
+                    <tr >
+                        <th>序号</th>
+                        <th>名称</th>
+                        <th>作者</th>
+                        <th>创建时间</th>
+                        <th>最后修改时间</th>
+                        <th>最后执行状态</th>
+                        <th>描述</th>
+                        <th>操作</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Name</td>
-                            <td>2019-10-20</td>
-                            <td>2019-10-20</td>
-                            <td>
-                                <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green" title="成功"></span>
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red" title="失败"></span>
-                            </td>
-                            <td>
-                                <a>History</a>
-                            </td>
-                        </tr>
+                    <tr th:each="template:${templateList}">
+                        <td th:text="${template['tid']}"></td>
+                        <td th:text="${template['name']}"></td>
+                        <td th:text="${template['username']}"></td>
+                        <td th:text="${#dates.format(template['create_time'],'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td th:text="${#dates.format(template['modified_time'],'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td>
+                            <span th:if="${template['success']} eq true " class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green" title="成功"></span>
+                            <span th:if="${template['success']} eq false "class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red" title="失败"></span>
+                        </td>
+                        <td>
+                        <span id="span-tips-hide" class="tooltip-toggle" data-toggle="tooltip"
+                              data-placement="bottom" th:title="${template.description==null?'没有描述':template.description}">
+                            <span class="glyphicon glyphicon-tag" aria-hidden="true" style="font-size: 20px;color: indianred" ></span>
+                        </span>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm"
+                               th:href="@{'/templates/use'(sign=${template['sign']},time=${time},account=${account},tid=${template['tid']})}">
+                                运用模板
+                            </a>
+                            <a class="btn btn-primary btn-sm"
+                               th:href="@{'/user/templates/history'(sign=${template['sign']},time=${time},account=${account},tid=${template['tid']})}">
+                                运用模板
+                            </a>
+                            <a class="btn btn-primary btn-sm"
+                               th:href="@{'/templates/result'(sign=${template['sign']},time=${time},account=${account},tid=${template['tid']})}">
+                                查看结果
+                            </a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

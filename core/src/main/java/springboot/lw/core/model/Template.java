@@ -42,4 +42,9 @@ public class Template implements Serializable {
      * 对应user
      */
     private User user;
+
+    /**
+     * 最后提交
+     */
+    private transient TemplateHistory history;
 }

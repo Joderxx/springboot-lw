@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import springboot.lw.core.model.Template;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiejiedun on 2019/1/17
@@ -34,7 +35,16 @@ public interface TemplateMapper {
      * @param tid
      * @return
      */
+    Template getPublicById(long tid);
+
+    /**
+     * 获取模板
+     * @param tid
+     * @return
+     */
     Template getById(long tid);
+
+    Map<String,Object> getDetailById(long tid);
 
     /**
      * 获取用户模板
@@ -64,5 +74,7 @@ public interface TemplateMapper {
      */
     int update(Template template);
 
-    Template getLastEdit(long userId);
+    Map<String,Object> getLastEdit(long userId);
+
+    List<Map<String, Object>> getTemplateByUId(long userId);
 }

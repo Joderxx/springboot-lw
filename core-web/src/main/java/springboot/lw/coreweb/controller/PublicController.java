@@ -35,18 +35,19 @@ public class PublicController extends BaseController{
         model.addAttribute("templateType","public-template");
         List<Template> publicTemplate = templateService.getPublicTemplate();
         if (publicTemplate==null){
-            model.addAttribute("templates", Collections.EMPTY_LIST);
+            model.addAttribute("templateList", Collections.EMPTY_LIST);
         }else {
             List<TemplateDTO> list = new ArrayList<>(publicTemplate.size());
             String account = request.getParameter("account");
             account = account==null?"":account;
             long time = System.currentTimeMillis();
+            model.addAttribute("time",time);
             for (Template template:publicTemplate){
                 TemplateDTO templateDTO = TemplateDTO.copy(template);
                 templateDTO.setSign(Md5Util.md5(String.format("account=%s&tid=%s&time=%s",account,templateDTO.getTid(),time)));
                 list.add(templateDTO);
             }
-            model.addAttribute("templates",list);
+            model.addAttribute("templateList",list);
         }
 
         return "panel";

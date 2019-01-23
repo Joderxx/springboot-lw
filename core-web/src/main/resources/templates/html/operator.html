@@ -37,7 +37,8 @@
                             <label class="col-sm-1 control-label">是否公开</label>
                             <div class="col-sm-2" style="margin-top: 5px;width: 100px">
                                 <label class="el-switch el-switch-green">
-                                    <input type="checkbox" name="switch" id="publish-btn">
+                                    <input type="checkbox" name="switch" id="publish-btn" checked th:if="${template.publish}" th:value="${template.publish}">
+                                    <input type="checkbox" name="switch" id="publish-btn" th:if="${!template.publish}" th:value="${template.publish}">
                                     <span class="el-switch-style" style="text-align: center" id="publish-text"
                                           th:text="${template.publish?'公开':'未公开'}"></span>
                                 </label>
