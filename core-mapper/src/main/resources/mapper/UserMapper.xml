@@ -32,7 +32,7 @@
     <update id="updateUsername">
       update user set username=#{newName} where id=#{userId}
     </update>
-    <select id="getById" resultMap="User" parameterType="long">
+    <select id="getUserById" resultMap="User" parameterType="long">
       select * from user where id = #{userId}
     </select>
     <select id="get" resultType="springboot.lw.core.model.User" parameterType="springboot.lw.core.model.User">

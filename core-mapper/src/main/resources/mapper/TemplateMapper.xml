@@ -10,14 +10,15 @@
         <result property="createTime" column="create_time" />
         <result property="publish" column="publish" />
         <association property="user" column="uid" resultMap="springboot.lw.core.mapper.dao.UserMapper.User" />
+
     </resultMap>
 
     <sql id="tables">
-        template as t,`user` as u
+        template as t,user as u
     </sql>
 
     <sql id="select-field">
-        tid,`name`,description,t.create_time,t.modified_time,publish,username,u.id
+        tid,`name`,description,t.create_time,t.modified_time,publish,u.username,u.id
     </sql>
 
     <sql id="concat-condition">
@@ -40,6 +41,9 @@
             <if test="publish!=null">
                 ,publish=#{publish}
             </if>
+            <if test="modifiedTime!=null">
+                ,modified_time=#{modifiedTime}
+            </if>
         </trim>
         where tid=#{tid}
     </update>
@@ -61,21 +65,21 @@
         on t1.tid=t2.tid)
     </select>
 
-    <select id="getPublicById" resultType="springboot.lw.core.model.Template">
-        select <include refid="select-field"/> from <include refid="tables"/> where tid=#{tid} and publish=1
+    <select id="getPublicById" resultMap="Template">
+        select <include refid="select-field"/> from <include refid="tables"/> where uid=#{userId} and publish=1
         and <include refid="concat-condition"/>
     </select>
 
-    <select id="getByUserIdAndId" resultType="springboot.lw.core.model.Template">
+    <select id="getByUserIdAndId" resultMap="Template">
         select <include refid="select-field"/> from  <include refid="tables"/> where tid=#{tid} and t.uid = #{userId}
         and <include refid="concat-condition"/>
     </select>
-    <select id="getUserTemplates" resultType="springboot.lw.core.model.Template">
+    <select id="getUserTemplates" resultMap="Template">
         select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
         and <include refid="concat-condition"/>
     </select>
-    <select id="getPublicTemplate" resultType="springboot.lw.core.model.Template">
-        select <include refid="select-field"/> from  <include refid="tables"/> where uid = #{userId} and publish=1
+    <select id="getPublicTemplate" resultMap="Template">
+        select <include refid="select-field"/> from <include refid="tables"/> where publish=1
         and <include refid="concat-condition"/>
     </select>
     <select id="getLastEdit" resultType="java.util.Map">

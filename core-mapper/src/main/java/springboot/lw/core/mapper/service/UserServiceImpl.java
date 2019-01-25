@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long userId){
-        return userMapper.getById(userId);
+        return userMapper.getUserById(userId);
     }
 
 
@@ -64,4 +64,6 @@ public class UserServiceImpl implements UserService {
         int num = userMapper.save(user);
         return num>0?Return.SUCCESS:Return.FAIL;
     }
+
+
 }

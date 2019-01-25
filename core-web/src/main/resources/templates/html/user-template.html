@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="container" th:fragment="copy">
-        <div class="panel panel-default">
+        <div class="col-sm-offset-1 col-sm-10 panel panel-default">
             <!-- Default panel contents -->
             <div class="panel-heading">模板</div>
             <div class="panel-body" >
@@ -23,13 +23,14 @@
                 <table class="table table-bordered table-hover " style="border-radius: 10px">
                     <thead>
                     <tr >
-                        <th>序号</th>
+                        <th>ID</th>
                         <th>名称</th>
                         <th>作者</th>
                         <th>创建时间</th>
                         <th>最后修改时间</th>
                         <th>最后执行状态</th>
                         <th>描述</th>
+                        <th>是否公开</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -46,9 +47,13 @@
                         </td>
                         <td>
                         <span id="span-tips-hide" class="tooltip-toggle" data-toggle="tooltip"
-                              data-placement="bottom" th:title="${template.description==null?'没有描述':template.description}">
+                              data-placement="bottom" th:title="${template['description']==null?'没有描述':template['description']}">
                             <span class="glyphicon glyphicon-tag" aria-hidden="true" style="font-size: 20px;color: indianred" ></span>
                         </span>
+                        </td>
+                        <td>
+                            <span th:if="${template['publish']==true}">公开</span>
+                            <span th:if="${template['publish']!=true}">不公开</span>
                         </td>
                         <td>
                             <a class="btn btn-primary btn-sm"
@@ -57,11 +62,11 @@
                             </a>
                             <a class="btn btn-primary btn-sm"
                                th:href="@{'/user/templates/history'(sign=${template['sign']},time=${time},account=${account},tid=${template['tid']})}">
-                                运用模板
+                                历史记录
                             </a>
                             <a class="btn btn-primary btn-sm"
                                th:href="@{'/templates/result'(sign=${template['sign']},time=${time},account=${account},tid=${template['tid']})}">
-                                查看结果
+                                查看最后结果
                             </a>
                         </td>
                     </tr>

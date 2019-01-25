@@ -3,7 +3,7 @@
 <body>
 <div th:fragment="copy">
     <div class="col-sm-12">
-        <div class="row" style="float: left;" >
+        <div class="row" style="float: left;" th:if="${templateType=='user-operator'}">
             <span id="span-tips-show" class="tooltip-toggle" data-toggle="tooltip"
                   data-placement="bottom" title="点击拉出" style="position: fixed" >
                 <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"

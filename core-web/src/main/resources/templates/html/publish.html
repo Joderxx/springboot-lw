@@ -15,14 +15,14 @@
 </head>
 <body>
 <div class="container" th:fragment="copy">
-    <div class="panel panel-default" >
+    <div class="col-sm-offset-1 col-sm-10 panel panel-default" >
         <!-- Default panel contents -->
         <div class="panel-heading">公开模板</div>
         <div class="panel-body" >
             <table class="table table-bordered table-hover " style="border-radius: 10px">
                 <thead>
                 <tr >
-                    <th>序号</th>
+                    <th>ID</th>
                     <th>名称</th>
                     <th>作者</th>
                     <th>创建时间</th>
@@ -44,11 +44,11 @@
                     </td>
                     <td>
                         <a class="btn btn-primary btn-sm"
-                           th:href="@{'/templates/use'(sign=${template.sign},time=${time},account=${account},tid=${tid})}}">
+                           th:href="@{'/templates/use'(sign=${template.sign},time=${time},account=${account},tid=${template.tid})}">
                             运用模板
                         </a>
                         <a class="btn btn-primary btn-sm"
-                           th:href="@{'/templates/result'(sign=${template.sign},time=${time},account=${account},tid=${tid})}}">
+                           th:href="@{'/templates/result'(sign=${template.sign},time=${time},account=${account},tid=${template.tid})}">
                             查看结果
                         </a>
                     </td>
@@ -59,6 +59,7 @@
 
 
     </div>
+
 </div>
 </body>
 <script>

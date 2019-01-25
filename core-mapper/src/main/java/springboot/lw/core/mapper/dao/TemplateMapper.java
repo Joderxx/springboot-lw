@@ -32,10 +32,10 @@ public interface TemplateMapper {
 
     /**
      * 获取公开模板
-     * @param tid
+     * @param uid
      * @return
      */
-    Template getPublicById(long tid);
+    Template getPublicById(long uid);
 
     /**
      * 获取模板

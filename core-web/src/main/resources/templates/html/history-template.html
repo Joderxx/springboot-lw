@@ -15,32 +15,34 @@
 </head>
 <body>
 <div class="container" th:fragment="copy">
-    <div class="panel panel-default">
+    <div class="col-sm-offset-1 col-sm-10 panel panel-default" th:if="${template!=null}">
         <!-- Default panel contents -->
-        <div class="panel-heading">模板：（名称）</div>
+        <div class="panel-heading">模板：（<span th:text="${template.name}"></span>）</div>
         <div class="panel-body" >
             <table class="table table-bordered table-hover " style="border-radius: 10px">
                 <thead>
                 <tr >
-                    <th>序号</th>
+                    <th>ID</th>
                     <th>创建时间</th>
-                    <th>最后修改时间</th>
                     <th>最后执行状态</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2019-10-20</td>
-                    <td>2019-10-20</td>
+                <tr th:each="history:${historyList}">
+                    <td th:text="${history.hid}"></td>
+                    <td th:text="${#dates.format(history.modifiedTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;font-size: 20px" title="成功"></span>
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;font-size: 20px" title="失败"></span>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;font-size: 20px" title="成功" th:if="${history.success==true}"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;font-size: 20px" title="失败" th:if="${history.success!=true}"></span>
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm">运用模板</a>
-                        <a class="btn btn-primary btn-sm">查看结果</a>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="@{'/user/templates/userHistory'(sign=${sign},tid=${template.tid},account=${account},time=${time},hid=${history.hid})}">
+                            运用该模板</a>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="@{'/user/templates/history/results'(sign=${sign},tid=${template.tid},account=${account},time=${time},hid=${history.hid})}">
+                            查看结果</a>
                     </td>
                 </tr>
                 </tbody>

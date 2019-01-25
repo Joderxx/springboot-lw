@@ -40,6 +40,11 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public boolean updateTemplate(Template template) {
+        return templateMapper.update(template)>0;
+    }
+
+    @Override
     public List<Template> getUserTemplate(long userId) {
         return templateMapper.getUserTemplates(userId);
     }
@@ -147,5 +152,10 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public TemplateHistory getHistoryLastByTid(long tid) {
         return templateHistoryMapper.getLast(tid);
+    }
+
+    @Override
+    public TemplateHistory useTemplateHistory(long tid, long hid) {
+        return templateHistoryMapper.getByTidAndHid(tid,hid);
     }
 }

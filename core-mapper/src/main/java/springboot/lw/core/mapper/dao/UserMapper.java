@@ -17,7 +17,7 @@ public interface UserMapper {
 
     int save(User user);
 
-    User getById(long userId);
+    User getUserById(long userId);
 
     User get(User user);
 

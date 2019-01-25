@@ -1,17 +1,20 @@
 package springboot.lw.coreweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import springboot.lw.core.model.Template;
+import springboot.lw.core.model.TemplateHistory;
 import springboot.lw.core.model.User;
 import springboot.lw.core.service.TemplateService;
 import springboot.lw.core.service.UserService;
 import springboot.lw.core.util.Md5Util;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +24,7 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("/user/templates")
+@Log4j2
 public class UserTemplateController extends BaseController {
 
     @Reference
@@ -63,6 +67,9 @@ public class UserTemplateController extends BaseController {
             return "404";
         }else {
             List<Map<String, Object>> userTemplates = templateService.getUserTemplates(user.getId());
+            if (userTemplates==null||userTemplates.size()==0){
+                userTemplates = new ArrayList<>();
+            }
             long time = System.currentTimeMillis();
             for (Map<String,Object> map:userTemplates){
                 String md5 = Md5Util.md5(String.format("account=%s&tid=%s&time=%s",account,map.get("tid"),time));
@@ -106,6 +113,49 @@ public class UserTemplateController extends BaseController {
     @GetMapping("/history")
     public String getHistory(@RequestParam("tid") String tid, Model model){
         model.addAttribute("templateType","history-template");
+        try {
+            List<TemplateHistory> historyByTid = templateService.getHistoryByTid(Long.parseLong(tid));
+            model.addAttribute("historyList",historyByTid);
+            model.addAttribute("template",templateService.getTemplateById(Long.parseLong(tid)));
+            return "panel";
+        }catch (Exception e){
+            log.error(e);
+            return "500";
+        }
+    }
+
+    @GetMapping("/userHistory")
+    public String useHistory(@RequestParam("account") String account,
+                             @RequestParam("tid") String tid,
+                             @RequestParam("hid") String hid, Model model){
+        try {
+            long time = System.currentTimeMillis();
+            User user = userService.getUserByAccount(account);
+            TemplateHistory history = templateService.useTemplateHistory(Long.parseLong(tid), Long.parseLong(hid));
+            if (history==null){
+                return "404";
+            }
+            TemplateHistory history2 = templateService.getHistoryLastByTid(Long.parseLong(tid));
+            if (history2==null||history2.getContent()==null||history2.getContent().equals(history.getContent())){
+                history.setModifiedTime(time);
+                templateService.addHistory(history);
+            }
+            Template template = templateService.getTemplateById(Long.parseLong(tid));
+            template.setModifiedTime(time);
+            templateService.updateTemplate(template);
+            String md5 = Md5Util.md5(String.format("account=%s&tid=%s&time=%s",user.getAccount(),template.getTid(),time));
+            return "redirect:/user/main?account="+user.getAccount()+"&tid="+template.getTid()+"&time="+time+"&sign="+md5;
+        }catch (Exception e){
+            log.error(e);
+            return "500";
+        }
+    }
+
+    @GetMapping("/history/results")
+    public String getHistory(@RequestParam("account") String account,
+                             @RequestParam("tid") String tid,
+                             @RequestParam("hid") String hid, Model model){
+        model.addAttribute("templateType","user-main");
         return "panel";
     }
 

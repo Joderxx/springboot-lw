@@ -19,6 +19,8 @@ public interface TemplateService {
      */
     boolean saveTemplate(Template template);
 
+    boolean updateTemplate(Template template);
+
     /**
      * 更新
      * @param tid
@@ -102,5 +104,7 @@ public interface TemplateService {
     TemplateHistory getHistorySuccessByTid(long tid);
 
     TemplateHistory getHistoryLastByTid(long tid);
+
+    TemplateHistory useTemplateHistory(long tid,long hid);
 
 }

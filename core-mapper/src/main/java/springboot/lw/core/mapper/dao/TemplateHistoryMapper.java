@@ -1,6 +1,7 @@
 package springboot.lw.core.mapper.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import springboot.lw.core.model.TemplateHistory;
 
@@ -24,4 +25,6 @@ public interface TemplateHistoryMapper {
     TemplateHistory getById(long hid);
 
     TemplateHistory getByUserLast(long userId);
+
+    TemplateHistory getByTidAndHid(@Param("tid") long tid, @Param("hid") long hid);
 }
