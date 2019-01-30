@@ -40,6 +40,9 @@
         insert into template_history(tid, success, modified_time, content)
         values(#{template.tid},#{success},#{modifiedTime},#{content})
     </insert>
+    <update id="update">
+        update template_history set success=#{success} where hid=#{hid}
+    </update>
     <select id="getByTid" resultMap="TemplateHistory">
         select
           <include refid="three-select-field" />

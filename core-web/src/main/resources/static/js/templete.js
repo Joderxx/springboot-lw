@@ -1,5 +1,5 @@
 function paramTemp() {
-    var temp = "<div class=\"row panel panel-info text-center\">\n" +
+    var temp = "<div class='row col-sm-12'><div class=\"row panel panel-info\">\n" +
         "                <div class=\"panel-heading\">参数信息</div>\n" +
         "                <div class=\"panel-body\">\n" +
         "                    <div id=\"parameterInfo\" >\n" +
@@ -7,13 +7,13 @@ function paramTemp() {
         "                    </div>\n" +
         "\n" +
         "                </div>\n" +
-        "            </div>";
+        "            </div></div>";
     return temp;
 }
 
 function paramInfoTemp(index,key,value) {
     var temp = "<div class=\"row\">\n" +
-        "                            <div class=\"row panel col-sm-offset-1 col-sm-10\">\n" +
+        "                            <div class=\"row panel col-sm-10\">\n" +
         "                                <div class=\"col-sm-3 \">\n" +
         "                                    <input type=\"text\" class=\"form-control\" id=\"paramKey_"+index+"\" placeholder=\"参数\" value='"+key+"' style='height: 25px' readonly>\n" +
         "                                </div>\n" +
@@ -35,7 +35,7 @@ function paramInfoTemp(index,key,value) {
 }
 
 function proxyTemp() {
-    var temp = "<div class=\"row panel panel-info \">\n" +
+    var temp = "<div class='row col-sm-12'><div class=\"row panel panel-info \">\n" +
         "                <div class=\"panel-heading\">代理</div>\n" +
         "                <div class=\"panel-body\">\n" +
         "                    <div class=\"row\">\n" +
@@ -55,12 +55,12 @@ function proxyTemp() {
         "                        </form>\n" +
         "                    </div>\n" +
         "                </div>\n" +
-        "            </div>";
+        "            </div></div>";
     return temp;
 }
 
 function headerTemp() {
-    var temp = "<div class=\"row panel panel-info \">\n" +
+    var temp = "<div class='row col-sm-12'><div class=\"row panel panel-info \">\n" +
         "                <div class=\"panel-heading\">头部信息" +
         "                            <div class=\"btn-group btn-group-xs\">\n" +
         "                                <button type=\"button\" class=\"btn btn-success\" onclick='addHeaderInfo(this)'>新增头部</button>\n" +
@@ -68,18 +68,14 @@ function headerTemp() {
         "                  </div>\n" +
         "                <div class=\"panel-body\">\n" +
                              "<div id='headers'></div>"+
-        "                    <div class=\"row\">\n" +
-        "                        <form class=\"form-horizontal\">\n" +
-        "                        </form>\n" +
-        "                    </div>\n" +
         "                </div>\n" +
-        "            </div>";
+        "            </div></div>";
     return temp;
 }
 
 function headerInfoTemp(index) {
     var temp = "<div id='headerInfo-"+index+"' class=\"row\">\n" +
-        "                        <div class=\"row panel col-sm-offset-1 col-sm-10\">\n" +
+        "                        <div class=\"row panel col-sm-10\">\n" +
         "                            <div class=\"col-sm-3 \">\n" +
         "                                <input type=\"text\" class=\"form-control\" name='header-key' placeholder=\"头部键(例：Cookie)\" style='height: 25px'>\n" +
         "                            </div>\n" +
@@ -96,7 +92,7 @@ function headerInfoTemp(index) {
         "                            </div>\n" +
         "                        </div>\n" +
         "\n" +
-        "                        </div>"
+        "                        </div>";
     return temp;
 }
 

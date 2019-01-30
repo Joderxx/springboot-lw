@@ -80,6 +80,7 @@ function findFieldCondition(){
             var condition = [];
             var cj = 0;
             var fieldName = $("#"+e).find("input[name='filed-name']").val();
+            console.log(e);
             $.each(fieldConditionArr[i],function () {
                 if (this!=''){
                     condition[cj++] = findCondition(this)
@@ -96,6 +97,7 @@ function findFieldCondition(){
 
 $(function () {
    $("#send").click(function () {
+       var name = $("#template-name").val()
        var url = $("#url").val();
        if (isEmpty(url)){
            Swal.fire('没有填写url')
@@ -106,12 +108,13 @@ $(function () {
        var header = findHeaders();
        var proxy = findProxy();
        var request = {
+           templateName: name,
            url: url,
            method: method,
-           header: header,
+           headers: header,
            proxy:proxy,
-           common: common,
-           field: field
+           commons: common,
+           fields: field
        }
 
        console.log(request)

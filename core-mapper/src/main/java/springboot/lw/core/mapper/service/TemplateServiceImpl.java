@@ -70,7 +70,7 @@ public class TemplateServiceImpl implements TemplateService {
         user.setUsername(lastEdit.get("username").toString());
         template.setUser(user);
         TemplateHistory history = new TemplateHistory();
-        history.setSuccess(Boolean.parseBoolean(String.valueOf(lastEdit.get("success"))));
+        history.setSuccess(Integer.parseInt(String.valueOf(lastEdit.get("success"))));
         history.setContent(String.valueOf(lastEdit.get("content")));
         template.setHistory(history);
         return template;
@@ -102,8 +102,8 @@ public class TemplateServiceImpl implements TemplateService {
         user.setUsername(lastEdit.get("username").toString());
         template.setUser(user);
         TemplateHistory history = new TemplateHistory();
-        history.setSuccess(Boolean.parseBoolean(String.valueOf(lastEdit.get("success"))));
-        history.setContent(String.valueOf(lastEdit.get("content")));
+        history.setSuccess(Integer.parseInt(String.valueOf(lastEdit.get("success")==null?"0":lastEdit.get("success"))));
+        history.setContent(String.valueOf(lastEdit.get("content")==null?"":lastEdit.get("content")));
         template.setHistory(history);
         return template;
     }
@@ -157,5 +157,9 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public TemplateHistory useTemplateHistory(long tid, long hid) {
         return templateHistoryMapper.getByTidAndHid(tid,hid);
+    }
+    @Override
+    public boolean updateHistory(TemplateHistory templateHistory) {
+        return templateHistoryMapper.update(templateHistory)>0;
     }
 }

@@ -46,5 +46,5 @@ public class Template implements Serializable {
     /**
      * 最后提交
      */
-    private transient TemplateHistory history;
+    private TemplateHistory history;
 }

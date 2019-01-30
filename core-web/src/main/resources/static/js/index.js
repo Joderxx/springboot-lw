@@ -1,7 +1,40 @@
 var headerFlag = true; //是否添加头部
 var proxyFlag = true;
-
 var  paramNum = 0;
+var headerIndex = 0;
+var headArr = [];
+var commonIndex = 0;
+var commonArr = [];
+var fieldIndex = 0;
+var fieldArr = [];
+var fieldConditionIndex = [];
+var fieldConditionArr = [];
+
+var requestString = document.getElementById("request-string").value;
+var json = JSON.parse(requestString);
+if (json!=null){
+    headerIndex = json.headers;
+    for (var i = 0;i<headerIndex;i++){
+        headArr[i] = 'headerInfo-'+i;
+    }
+    commonIndex = json.commons;
+    for (var i = 0;i<commonIndex;i++){
+        commonArr[i] = 'common-'+i;
+    }
+    fieldIndex =  typeof (json.fields) == 'undefined'?0:json.fields.length;
+    for (var i = 0;i<fieldIndex;i++){
+        fieldArr[i] = 'field-'+i;
+        fieldConditionArr[i] = [];
+        for (var j=0;j<json.fields[i];j++) {
+            if (typeof (fieldConditionIndex[i])=='undefined') {
+                fieldConditionIndex[i] = 0
+            }
+            fieldConditionArr[i][fieldConditionIndex] = 'field-'+i+"-condition-"+fieldConditionIndex[i];
+            fieldConditionIndex[i]++;
+        }
+    }
+}
+
 function updateParameter(input) {
     var param = document.getElementById("parameter");
     var url = document.getElementById("url").value;
@@ -104,8 +137,7 @@ function addHeaderForm(btn) {
     }
 }
 
-var headerIndex = 0;
-var headArr = [];
+
 
 function addHeaderInfo(btn) {
     $("#headers").append(headerInfoTemp(headerIndex));
@@ -140,9 +172,6 @@ function removeCondition(s) {
     $("#"+s).remove()
 }
 
-var commonIndex = 0;
-var commonArr = [];
-
 function addCommonCondition(btn) {
     $(".common-condition-body").append(commonConditionTemp(commonIndex));
     commonArr[commonIndex] = 'common-'+commonIndex;
@@ -154,14 +183,11 @@ function removeCommonCondition(index) {
     $("#common-"+index).remove();
 }
 
-var fieldIndex = 0;
-var fieldArr = [];
-var fieldConditionIndex = 0;
-var fieldConditionArr = [];
+
 
 function addFiled(btn) {
     $(".field-condition-body").append(filedTemp(fieldIndex));
-    fieldArr[fieldIndex] = 'field-'+commonIndex;
+    fieldArr[fieldIndex] = 'field-'+fieldIndex;
     fieldConditionArr[fieldIndex] = [];
     fieldIndex++;
 }
@@ -173,10 +199,12 @@ function removeFiled(index) {
 }
 
 function addFiledCondition(index) {
-
-    $(".filed-condition-"+index).append(fieldConditionTemp(index,fieldConditionIndex))
-    fieldConditionArr[index][fieldConditionIndex] = 'field-'+index+"-condition-"+fieldConditionIndex;
-    fieldConditionIndex++;
+    if (typeof (fieldConditionIndex[index])== 'undefined'){
+        fieldConditionIndex[index] = 0
+    }
+    $(".filed-condition-"+index).append(fieldConditionTemp(index,fieldConditionIndex[index]))
+    fieldConditionArr[index][fieldConditionIndex] = 'field-'+index+"-condition-"+fieldConditionIndex[index];
+    fieldConditionIndex[index]++;
 }
 
 function removeFiledCondition(index1,index2) {

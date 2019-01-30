@@ -16,6 +16,8 @@ public interface TemplateHistoryMapper {
 
     int add(TemplateHistory history);
 
+    int update(TemplateHistory history);
+
     List<TemplateHistory> getByTid(long tid);
 
     TemplateHistory getLast(long tid);
@@ -27,4 +29,5 @@ public interface TemplateHistoryMapper {
     TemplateHistory getByUserLast(long userId);
 
     TemplateHistory getByTidAndHid(@Param("tid") long tid, @Param("hid") long hid);
+
 }

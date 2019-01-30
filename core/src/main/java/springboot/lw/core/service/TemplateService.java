@@ -105,6 +105,10 @@ public interface TemplateService {
 
     TemplateHistory getHistoryLastByTid(long tid);
 
+
+
     TemplateHistory useTemplateHistory(long tid,long hid);
+
+    boolean updateHistory(TemplateHistory templateHistory);
 
 }

@@ -42,8 +42,10 @@
                         <td th:text="${#dates.format(template['create_time'],'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${#dates.format(template['modified_time'],'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
-                            <span th:if="${template['success']} eq true " class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green" title="成功"></span>
-                            <span th:if="${template['success']} eq false "class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red" title="失败"></span>
+                            <span th:if="${template['success']}==0"class="glyphicon glyphicon-certificate" aria-hidden="true" style="color: #b3abab " title="默认"></span>
+                            <span th:if="${template['success']}==1 " class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green" title="成功"></span>
+                            <span th:if="${template['success']}==2"class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red" title="失败"></span>
+                            <span th:if="${template['success']}==3"class="glyphicon glyphicon-certificate" aria-hidden="true" style="color: #f7ba2a" title="执行中"></span>
                         </td>
                         <td>
                         <span id="span-tips-hide" class="tooltip-toggle" data-toggle="tooltip"
@@ -67,6 +69,10 @@
                             <a class="btn btn-primary btn-sm"
                                th:href="@{'/templates/result'(sign=${template['sign']},time=${time},account=${account},tid=${template['tid']})}">
                                 查看最后结果
+                            </a>
+                            <a class="btn btn-primary btn-sm"
+                               href="javascript: location.reload()" title="刷新">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                             </a>
                         </td>
                     </tr>

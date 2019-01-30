@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @Data
 public class TemplateHistory implements Serializable {
-
+    public static final int SUCCESS=1,FAIL=2,RUN=3,DEFAULT=0;
     /**
      * id
      */
@@ -24,8 +24,9 @@ public class TemplateHistory implements Serializable {
     private String content;
     /**
      * 是否成功
+     * 0 默认 1成功 2失败 3执行中
      */
-    private boolean success;
+    private int success;
     /**
      * 对应Template
      */

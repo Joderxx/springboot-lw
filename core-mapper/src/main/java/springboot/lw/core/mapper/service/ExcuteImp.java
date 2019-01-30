@@ -2,23 +2,31 @@ package springboot.lw.core.mapper.service;
 
 
 import com.alibaba.dubbo.config.annotation.Service;
+import lombok.extern.log4j.Log4j2;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import springboot.lw.core.model.ExcuteParameter;
-import springboot.lw.core.model.FilterParam;
-import springboot.lw.core.model.RequestParam;
-import springboot.lw.core.model.Result;
+import springboot.lw.core.model.*;
+import springboot.lw.core.model.request.RequestData;
 import springboot.lw.core.service.Crawl;
 import springboot.lw.core.service.Excute;
+import springboot.lw.core.service.TemplateService;
+
+import java.util.concurrent.*;
 
 @Service(interfaceClass = Excute.class)
 @Component
+@Log4j2
 public class ExcuteImp implements Excute {
+
+    private static final ExecutorService threadPool = new ThreadPoolExecutor(10, 20,
+            0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
 
     @Autowired
     private Crawl crawl;
+    @Autowired
+    private TemplateService templateService;
 
     @Override
     public Result excute(ExcuteParameter parameter) throws Exception {
@@ -52,5 +60,27 @@ public class ExcuteImp implements Excute {
         }
 
         return result;
+    }
+
+    @Override
+    public void excute(RequestData requestData,long tid,long hid) throws Exception {
+        threadPool.submit(() -> {
+            TemplateHistory history = null;
+            try {
+                history = templateService.useTemplateHistory(tid,hid);
+                history.setSuccess(TemplateHistory.SUCCESS);
+                templateService.updateHistory(history);
+                //TODO
+            }catch (Exception e){
+                if (history!=null){
+                    history.setSuccess(TemplateHistory.FAIL);
+                }
+                log.error(e);
+            }finally {
+                if (history!=null){
+                    templateService.updateHistory(history);
+                }
+            }
+        });
     }
 }
