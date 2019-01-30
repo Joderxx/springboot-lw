@@ -101,23 +101,40 @@ $(function () {
        var url = $("#url").val();
        if (isEmpty(url)){
            Swal.fire('没有填写url')
-       }
-       var method = $("#method").val();
-       var common = findParendCondition();
-       var field = findFieldCondition();
-       var header = findHeaders();
-       var proxy = findProxy();
-       var request = {
-           templateName: name,
-           url: url,
-           method: method,
-           headers: header,
-           proxy:proxy,
-           commons: common,
-           fields: field
+       }else {
+           var method = $("#method").val();
+           var common = findParendCondition();
+           var field = findFieldCondition();
+           var header = findHeaders();
+           var proxy = findProxy();
+           var request = {
+               templateName: name,
+               url: url,
+               method: method,
+               headers: header,
+               proxy:proxy,
+               commons: common,
+               fields: field
+           };
+           console.log(request);
+           $.ajax({
+               type: 'post',
+               url: '/user/crawl/process',
+               data: {
+                   account:$("#account").val(),
+                   time: $("#time").val(),
+                   tid: $("#tid").val(),
+                   sign: $("#sign").val(),
+                   requestData: JSON.stringify(request)
+               },
+               success: function (data) {
+                   if (data==200){
+                       Swal.fire('提交成功，请稍后获取结果...')
+                   }
+               }
+           })
        }
 
-       console.log(request)
    });
 
    $("#publish-btn").click(function () {
@@ -132,7 +149,6 @@ $(function () {
        }
        $.ajax({
            type: 'post',
-           async: false,
            url: "/user/templates/publish",
            data: data,
            success: function (data) {

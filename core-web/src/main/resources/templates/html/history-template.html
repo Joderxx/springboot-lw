@@ -33,12 +33,14 @@
                     <td th:text="${history.hid}"></td>
                     <td th:text="${#dates.format(history.modifiedTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                     <td>
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green;font-size: 20px" title="成功" th:if="${history.success==true}"></span>
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;font-size: 20px" title="失败" th:if="${history.success!=true}"></span>
+                        <span th:if="${history['success']}==0"class="glyphicon glyphicon-certificate" aria-hidden="true" style="color: #b3abab " title="默认"></span>
+                        <span th:if="${history['success']}==1 " class="glyphicon glyphicon-ok" aria-hidden="true" style="color: green" title="成功"></span>
+                        <span th:if="${history['success']}==2"class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red" title="失败"></span>
+                        <span th:if="${history['success']}==3"class="glyphicon glyphicon-certificate" aria-hidden="true" style="color: #f7ba2a" title="执行中"></span>
                     </td>
                     <td>
                         <a class="btn btn-primary btn-sm"
-                           th:href="@{'/user/templates/userHistory'(sign=${sign},tid=${template.tid},account=${account},time=${time},hid=${history.hid})}">
+                           th:href="@{'/user/templates/useHistory'(sign=${sign},tid=${template.tid},account=${account},time=${time},hid=${history.hid})}">
                             运用该模板</a>
                         <a class="btn btn-primary btn-sm"
                            th:href="@{'/user/templates/history/results'(sign=${sign},tid=${template.tid},account=${account},time=${time},hid=${history.hid})}">

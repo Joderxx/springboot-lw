@@ -29,7 +29,7 @@ public class DealController extends BaseController{
 
 
     @PostMapping("/process")
-    public String process(@RequestParam(name = "request-data",defaultValue = "") String data,
+    public String process(@RequestParam(name = "requestData",defaultValue = "") String data,
                           @RequestParam(name = "tid",defaultValue = "0") String tid){
         long time = System.currentTimeMillis();
         RequestData requestData = JSON.parseObject(data,RequestData.class);

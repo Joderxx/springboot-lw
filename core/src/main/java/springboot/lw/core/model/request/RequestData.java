@@ -2,13 +2,14 @@ package springboot.lw.core.model.request;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author xiejiedun on 2019/1/28
  */
 @Data
-public class RequestData {
+public class RequestData implements Serializable {
 
     /**
      * 模板名字

@@ -9,5 +9,5 @@ public interface Excute {
 
     Result excute(ExcuteParameter parameter) throws Exception;
 
-    void excute(RequestData requestData,long tid,long hid) throws Exception;
+    boolean excute(RequestData requestData,long tid,long hid) throws Exception;
 }

@@ -76,17 +76,16 @@
                         <div class="btn-group btn-group-sm">
                             <button type="button" class="btn btn-primary" onclick="addCondition(this)"
                                     th:if="${#lists.isEmpty(requestData.commons)&&#lists.isEmpty(requestData.fields)}">添加条件</button>
+                            <button type="button" class="btn btn-danger" onclick="addCondition(this)"
+                                    th:if="${#lists.isEmpty(requestData.commons)==false||#lists.isEmpty(requestData.fields)==false}">删除条件</button>
                             <button type="button" class="btn btn-info" onclick="addHeaderForm(this)"
                                     th:if="${#lists.isEmpty(requestData.headers)}">添加头部信息</button>
-                            <button type="button" class="btn btn-primary" onclick="addProxy(this)"
-                                    th:if="${#lists.isEmpty(requestData.proxy)}">添加代理</button>
-
-                            <button type="button" class="btn btn-danger" onclick="addCondition(this)"
-                                    th:if="${#lists.isEmpty(requestData.commons)==false||#lists.isEmpty(requestData.fields)==false}">添加条件</button>
                             <button type="button" class="btn btn-danger" onclick="addHeaderForm(this)"
-                                    th:if="${#lists.isEmpty(requestData.headers)==false}">添加头部信息</button>
+                                    th:if="${#lists.isEmpty(requestData.headers)==false}">删除头部信息</button>
+                            <button type="button" class="btn btn-primary" onclick="addProxy(this)"
+                                    th:if="${requestData.proxy.host==null}">添加代理</button>
                             <button type="button" class="btn btn-danger" onclick="addProxy(this)"
-                                    th:if="${#lists.isEmpty(requestData.proxy)==false}">添加代理</button>
+                                    th:if="${requestData.proxy.host!=null}">删除代理</button>
                             <a class="btn btn-info" href="#">下载源码</a>
                         </div>
                     </div>
@@ -100,15 +99,6 @@
             <div id="header" class="row" style="padding-left: 22px;padding-right: 20px" th:if="${#lists.isEmpty(requestData.headers)}">
 
             </div>
-            <div id="proxy" class="row" style="padding-left: 22px;padding-right: 20px" th:if="${#lists.isEmpty(requestData.proxy)}">
-
-            </div>
-
-            <div id="conditionBody" class="row" style="padding-left: 22px;padding-right: 20px"
-                 th:if="${#lists.isEmpty(requestData.commons)&&#lists.isEmpty(requestData.fields)}">
-            </div>
-
-
             <div id="header" class="row" style="padding-left: 22px;padding-right: 20px" th:if="${#lists.isEmpty(requestData.headers)==false}">
                 <div class="row col-sm-12">
                     <div class="row panel panel-info ">
@@ -145,7 +135,10 @@
                 </div>
 
             </div>
-            <div id="proxy" class="row" style="padding-left: 22px;padding-right: 20px" th:if="${requestData.proxy != null} ">
+            <div id="proxy" class="row" style="padding-left: 22px;padding-right: 20px" th:if="${requestData.proxy.host==null}">
+
+            </div>
+            <div id="proxy" class="row" style="padding-left: 22px;padding-right: 20px" th:if="${requestData.proxy.host!=null} ">
                 <div class="row col-sm-12">
                     <div class="row panel panel-info">
                         <div class="panel-heading">代理</div>
@@ -172,6 +165,10 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div id="conditionBody" class="row" style="padding-left: 22px;padding-right: 20px"
+                 th:if="${#lists.isEmpty(requestData.commons)&&#lists.isEmpty(requestData.fields)}">
             </div>
 
             <div id="conditionBody" class="row" style="padding-left: 22px;padding-right: 20px"
@@ -220,11 +217,11 @@
                                                                     <label class="col-sm-2 control-label">选取条件</label>
                                                                     <div class="col-sm-2">
                                                                         <input type="radio" th:checked="${common.select}=='text'" name="select" placeholder="条件" value="text"
-                                                                               th:onclick="'hide(common-'+${commonStat}+')'">文本
+                                                                               th:onclick="'hide(\'common-'+${commonStat.index}+'\')'">文本
                                                                     </div>
                                                                     <div class="col-sm-2">
                                                                         <input type="radio" th:checked="${common.select}=='attr'" name="select" placeholder="条件" value="attr"
-                                                                               th:onclick="'show(common-'+${commonStat}+')'">属性
+                                                                               th:onclick="'show(\'common-'+${commonStat.index}+'\')'">属性
                                                                     </div>
                                                                     <div th:class="${common.select}=='attr'?'show':'hidden'">
                                                                         <input type="text" name='attr-text' placeholder="属性(例：name)" th:value="${common.attrText}">
@@ -268,8 +265,8 @@
                                                         <div class="panel-body">
                                                             <div class="row">
                                                                 <div th:class="'filed-condition-'+${fieldStat.index}" th:if="${#lists.isEmpty(field)}"></div>
-                                                                <div th:class="'filed-condition-'+${fieldStat.index}" th:if="${#lists.isEmpty(field)}==false" th:each="f,fStat:${field}">
-                                                                    <div class="row" th:id="'field-'+${fieldStat.index}+'-condition-'+${fStat.index}">
+                                                                <div th:class="'filed-condition-'+${fieldStat.index}" th:if="${#lists.isEmpty(field)==false}" th:each="f,fStat:${field.condition}">
+                                                                    <div class="row" th:id="'field-'+${fieldStat.index}+'-condition-'+${fStat.index}" >
                                                                         <div class="row" >
                                                                             <div class="col-sm-10">
                                                                                 <form class="form-horizontal">
@@ -299,12 +296,12 @@
                                                                                     <div class="form-group">
                                                                                         <label class="col-sm-2 control-label">选取条件</label>
                                                                                         <div class="col-sm-2">
-                                                                                            <input type="radio" checked name="select" placeholder="条件" value="text"
-                                                                                                   th:onclick="'hide(field-'+${fieldStat.index}+'-condition-'+${fStat.index}+')'">文本
+                                                                                            <input type="radio" th:checked="${#strings.equalsIgnoreCase(f.select,'text')}" name="select" placeholder="条件" value="text"
+                                                                                                   th:onclick="'hide(\'field-'+${fieldStat.index}+'-condition-'+${fStat.index}+'\')'">文本
                                                                                         </div>
                                                                                         <div class="col-sm-2">
-                                                                                            <input type="radio" name="select" placeholder="条件" value="attr"
-                                                                                                   th:onclick="'show(field-'+${fieldStat.index}+'-condition-'+${fStat.index}+')'">属性
+                                                                                            <input type="radio" th:checked="${#strings.equalsIgnoreCase(f.select,'attr')}" name="select" placeholder="条件" value="attr"
+                                                                                                   th:onclick="'show(\'field-'+${fieldStat.index}+'-condition-'+${fStat.index}+'\')'">属性
                                                                                         </div>
                                                                                         <div th:class="${#strings.equalsIgnoreCase(f.select,'attr')}?'show':'hidden'">
                                                                                             <input type="text" name='attr-text' placeholder="属性(例：name)" th:value="${f.attrText}">

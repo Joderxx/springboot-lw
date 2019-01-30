@@ -13,11 +13,17 @@ var fieldConditionArr = [];
 var requestString = document.getElementById("request-string").value;
 var json = JSON.parse(requestString);
 if (json!=null){
-    headerIndex = json.headers;
+    if (json.proxy==1){
+        proxyFlag = false;
+    }
+    headerIndex = typeof (json.headers)=='undefined'?0:json.headers;
+    if (headerIndex>0){
+        headerFlag = false;
+    }
     for (var i = 0;i<headerIndex;i++){
         headArr[i] = 'headerInfo-'+i;
     }
-    commonIndex = json.commons;
+    commonIndex = typeof (json.commons)=='undefined'?0:json.commons;
     for (var i = 0;i<commonIndex;i++){
         commonArr[i] = 'common-'+i;
     }
@@ -112,7 +118,7 @@ function addProxy(btn) {
     if (proxyFlag){
         proxy.innerHTML = proxyTemp();
         btn.innerHTML = '删除代理';
-        btn.className = "btn btn-danger"
+        btn.className = "btn btn-danger";
         proxyFlag = false;
     } else {
         btn.innerHTML = '添加代理'

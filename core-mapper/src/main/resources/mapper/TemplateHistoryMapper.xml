@@ -46,7 +46,7 @@
     <select id="getByTid" resultMap="TemplateHistory">
         select
           <include refid="three-select-field" />
-        from <include refid="three-table"/> where h.tid = #{tid} and <include refid="three-concat-sql"/>
+        from <include refid="three-table"/> where h.tid = #{tid} and <include refid="three-concat-sql"/> order by h.modified_time desc
     </select>
     <select id="getLast" resultMap="TemplateHistory">
         select

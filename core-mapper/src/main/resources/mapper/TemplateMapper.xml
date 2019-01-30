@@ -58,7 +58,7 @@
     </select>
 
     <select id="getDetailById" resultType="java.util.Map">
-        select t1.tid,`name`,description,create_time,modified_time,publish,username,id,success
+        select t1.tid,`name`,description,create_time,modified_time,publish,username,id,success,content
         from ((select <include refid="select-field"/> from  <include refid="tables"/> where tid=#{tid}
         and <include refid="concat-condition"/> ) t1 left join
         (select tid,success,content from template_history order by modified_time desc limit 1) t2
@@ -76,7 +76,7 @@
     </select>
     <select id="getUserTemplates" resultMap="Template">
         select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
-        and <include refid="concat-condition"/>
+        and <include refid="concat-condition"/> order by t.modified_time desc
     </select>
     <select id="getPublicTemplate" resultMap="Template">
         select <include refid="select-field"/> from <include refid="tables"/> where publish=1
@@ -89,10 +89,10 @@
         on t1.tid=t2.tid)
     </select>
     <select id="getTemplateByUId" resultType="java.util.Map">
-        select t1.tid,`name`,description,create_time,modified_time,publish,username,id,success
+        select t1.tid,`name`,description,create_time,t2.modified_time,publish,username,id,success
         from ((select <include refid="select-field"/> from  <include refid="tables"/> where t.uid = #{userId}
         and <include refid="concat-condition"/>) t1 left join
-        (select tid,success from template_history order by modified_time desc limit 1) t2
+        (select tid,success,modified_time from template_history order by modified_time desc limit 1) t2
         on t1.tid=t2.tid)
     </select>
 </mapper>

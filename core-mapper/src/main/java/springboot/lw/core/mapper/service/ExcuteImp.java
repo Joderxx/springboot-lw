@@ -63,7 +63,7 @@ public class ExcuteImp implements Excute {
     }
 
     @Override
-    public void excute(RequestData requestData,long tid,long hid) throws Exception {
+    public boolean excute(RequestData requestData,long tid,long hid) throws Exception {
         threadPool.submit(() -> {
             TemplateHistory history = null;
             try {
@@ -82,5 +82,6 @@ public class ExcuteImp implements Excute {
                 }
             }
         });
+        return true;
     }
 }

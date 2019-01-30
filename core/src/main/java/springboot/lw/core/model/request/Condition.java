@@ -2,11 +2,13 @@ package springboot.lw.core.model.request;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author xiejiedun on 2019/1/28
  */
 @Data
-public class Condition {
+public class Condition implements Serializable {
 
     /**
      * 条件类型

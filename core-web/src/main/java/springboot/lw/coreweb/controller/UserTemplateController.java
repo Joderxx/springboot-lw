@@ -124,7 +124,7 @@ public class UserTemplateController extends BaseController {
         }
     }
 
-    @GetMapping("/userHistory")
+    @GetMapping("/useHistory")
     public String useHistory(@RequestParam("account") String account,
                              @RequestParam("tid") String tid,
                              @RequestParam("hid") String hid, Model model){

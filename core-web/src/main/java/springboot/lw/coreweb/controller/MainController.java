@@ -82,6 +82,9 @@ public class MainController extends BaseController{
         if (requestData==null){
             return map;
         }
+        boolean isnull = !(requestData.getProxy()!=null||requestData.getProxy().getHost()!=null||
+                requestData.getProxy().getHost()!=null||requestData.getProxy().getAutoProxy()!=null);
+        map.put("proxy",isnull?0:1);
         map.put("headers",requestData.getHeaders()==null?0:requestData.getHeaders().size());
         map.put("commons",requestData.getCommons()==null?0:requestData.getCommons().size());
         List<Integer> list = new ArrayList<>();
