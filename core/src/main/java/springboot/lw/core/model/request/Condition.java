@@ -18,6 +18,11 @@ public class Condition implements Serializable {
      * 筛选条件
      */
     private String conditionText;
+
+    /**
+     * index
+     */
+    private Integer index = 0;
     /**
      * 选择文本还是属性
      */

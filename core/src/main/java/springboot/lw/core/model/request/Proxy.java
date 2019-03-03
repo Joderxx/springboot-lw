@@ -17,7 +17,7 @@ public class Proxy implements Serializable {
     /**
      * 代理端口
      */
-    private String port;
+    private Integer port;
     /**
      * 采用自动代理
      */

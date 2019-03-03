@@ -91,6 +91,9 @@ public class TemplateServiceImpl implements TemplateService {
         Map<String, Object> lastEdit = templateMapper.getLastEdit(userId);
         //tid,`name`,description,t.create_time,t.modified_time,publish,username,u.id,success,content
         Template template = new Template();
+        if(lastEdit==null||lastEdit.size()==0){
+            return template;
+        }
         template.setTid(Long.parseLong(String.valueOf(lastEdit.get("tid"))));
         template.setName(String.valueOf(lastEdit.get("name")));
         template.setDescription(String.valueOf(lastEdit.get("description")));

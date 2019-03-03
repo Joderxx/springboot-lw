@@ -3,7 +3,9 @@ package springboot.lw.core.model.request;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author xiejiedun on 2019/1/28
@@ -38,6 +40,16 @@ public class RequestData implements Serializable {
     /**
      * 代理
      */
-    private Proxy proxy;
+    private Proxy proxy = new Proxy();
+
+    public Map<String,String> headMap(){
+        Map<String,String> map = new HashMap<>();
+        if (headers!=null){
+            for (Header header:headers){
+                map.put(header.getKey(),header.getValue());
+            }
+        }
+        return map;
+    }
 
 }
