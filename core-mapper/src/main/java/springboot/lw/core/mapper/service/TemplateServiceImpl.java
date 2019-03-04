@@ -92,7 +92,7 @@ public class TemplateServiceImpl implements TemplateService {
         //tid,`name`,description,t.create_time,t.modified_time,publish,username,u.id,success,content
         Template template = new Template();
         if(lastEdit==null||lastEdit.size()==0){
-            return template;
+            return null;
         }
         template.setTid(Long.parseLong(String.valueOf(lastEdit.get("tid"))));
         template.setName(String.valueOf(lastEdit.get("name")));
@@ -121,6 +121,10 @@ public class TemplateServiceImpl implements TemplateService {
         return templateResultMapper.add(result)>0;
     }
 
+    @Override
+    public boolean updateResult(TemplateResult result) {
+        return templateResultMapper.update(result)>0;
+    }
 
     @Override
     public TemplateResult getResultById(long hid) {

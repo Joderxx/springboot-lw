@@ -13,6 +13,8 @@ public interface TemplateResultMapper {
 
     int add(TemplateResult result);
 
+    int update(TemplateResult result);
+
     TemplateResult getById(long hid);
 
     TemplateResult getLastSuccess(long tId);

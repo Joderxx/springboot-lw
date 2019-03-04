@@ -99,9 +99,13 @@ public class ExcuteImp implements Excute {
             templateService.updateHistory(history);
             List list = dealRequest(requestData);
             TemplateResult result = new TemplateResult();
-            result.setHid(history.getHid());
+            result.setHid(hid);
             result.setResult(JSON.toJSONString(list));
-            templateService.addResult(result);
+            try {
+                templateService.addResult(result);
+            }catch (Exception e){
+                templateService.updateResult(result);
+            }
         }catch (Exception e){
             if (history!=null){
                 history.setSuccess(TemplateHistory.FAIL);
@@ -120,19 +124,17 @@ public class ExcuteImp implements Excute {
         Connection connection = crawl.connect(requestData.getUrl()).ignoreContentType(true);
         connection = crawl.method(connection,requestData.getMethod());
         connection = crawl.headers(connection,requestData.headMap());
-        Connection.Response response = crawl.excute(connection);
-        String body = response.body();
+        Element body = connection.get().body();
         if (!CollectionUtils.isEmpty(requestData.getFields())){
-            Element element = new Element(body);
             Elements elements = null;
             if (!CollectionUtils.isEmpty(requestData.getCommons())){
-                elements = dealCommon(requestData,element);
+                elements = dealCommon(requestData,body);
                 list = dealField(requestData,elements);
             }
 
         }else {
             Map<String,String> map = new HashMap<>();
-            map.put("body",body);
+            map.put("body",body.wholeText());
             list.add(map);
         }
         return list;
@@ -145,7 +147,7 @@ public class ExcuteImp implements Excute {
             for (Element e: elements){
                 Elements t = dealCondition(condition,e);
                 if (t.size()>0){
-                    es.addAll(elements);
+                    es.addAll(t);
                 }
             }
             elements = es;
@@ -163,7 +165,7 @@ public class ExcuteImp implements Excute {
                 for (;i<field.getCondition().size()-1;i++){
                     es = dealCondition1(field.getCondition().get(i),es);
                 }
-                String str = dealElement(field.getCondition().get(i),es);
+                String str = dealLastCondition(field.getCondition().get(i),es);
                 map.put(field.getFieldName(),str);
             }
             list.add(map);
@@ -173,49 +175,50 @@ public class ExcuteImp implements Excute {
 
     private Elements dealCondition(Condition condition,Element element){
         Elements elements = new Elements();
-        if (condition.getSelect().equalsIgnoreCase("ID")){
-            elements.add(element.getElementById(condition.getConditionText()));
-        }else if (condition.getSelect().equalsIgnoreCase("CLASS")){
+        if (condition.getCondition().equalsIgnoreCase("ID")){
+            Element e = element.getElementById(condition.getConditionText());
+            elements.add(e);
+        }else if (condition.getCondition().equalsIgnoreCase("CLASS")){
             elements.addAll(element.getElementsByClass(condition.getConditionText()));
-        }else if (condition.getSelect().equalsIgnoreCase("TAG")){
+        }else if (condition.getCondition().equalsIgnoreCase("TAG")){
             elements.addAll(element.getElementsByTag(condition.getConditionText()));
-        }else if (condition.getSelect().equalsIgnoreCase("XPATH")){
+        }else if (condition.getCondition().equalsIgnoreCase("XPATH")){
 
-        }else if (condition.getSelect().equalsIgnoreCase("REGEX")){
+        }else if (condition.getCondition().equalsIgnoreCase("REGEX")){
 
         }
         return elements;
     }
 
     private Element dealCondition1(Condition condition,Element element){
-        if (condition.getSelect().equalsIgnoreCase("ID")){
+        if (condition.getCondition().equalsIgnoreCase("ID")){
             return element.getElementById(condition.getConditionText());
-        }else if (condition.getSelect().equalsIgnoreCase("CLASS")){
-            element.getElementsByClass(condition.getConditionText()).get(condition.getIndex());
-        }else if (condition.getSelect().equalsIgnoreCase("TAG")){
-            element.getElementsByTag(condition.getConditionText()).get(condition.getIndex());
-        }else if (condition.getSelect().equalsIgnoreCase("XPATH")){
+        }else if (condition.getCondition().equalsIgnoreCase("CLASS")){
+            return element.getElementsByClass(condition.getConditionText()).get(condition.getIndex());
+        }else if (condition.getCondition().equalsIgnoreCase("TAG")){
+            return element.getElementsByTag(condition.getConditionText()).get(condition.getIndex());
+        }else if (condition.getCondition().equalsIgnoreCase("XPATH")){
 
-        }else if (condition.getSelect().equalsIgnoreCase("REGEX")){
+        }else if (condition.getCondition().equalsIgnoreCase("REGEX")){
 
         }
         return null;
     }
 
     private String dealLastCondition(Condition condition,Element element){
-        if (condition.getSelect().equalsIgnoreCase("ID")){
+        if (condition.getCondition().equalsIgnoreCase("ID")){
             Element e = element.getElementById(condition.getConditionText());
             return dealElement(condition,e);
-        }else if (condition.getSelect().equalsIgnoreCase("CLASS")){
+        }else if (condition.getCondition().equalsIgnoreCase("CLASS")){
             Element e = element.getElementsByClass(condition.getConditionText()).get(condition.getIndex());
             return dealElement(condition,e);
-        }else if (condition.getSelect().equalsIgnoreCase("TAG")){
+        }else if (condition.getCondition().equalsIgnoreCase("TAG")){
             Element e = element.getElementsByTag(condition.getConditionText())
                     .get(condition.getIndex());
             return dealElement(condition,e);
-        }else if (condition.getSelect().equalsIgnoreCase("XPATH")){
+        }else if (condition.getCondition().equalsIgnoreCase("XPATH")){
 
-        }else if (condition.getSelect().equalsIgnoreCase("REGEX")){
+        }else if (condition.getCondition().equalsIgnoreCase("REGEX")){
 
         }
         return null;

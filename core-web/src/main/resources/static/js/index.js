@@ -35,7 +35,7 @@ if (json!=null){
             if (typeof (fieldConditionIndex[i])=='undefined') {
                 fieldConditionIndex[i] = 0
             }
-            fieldConditionArr[i][fieldConditionIndex] = 'field-'+i+"-condition-"+fieldConditionIndex[i];
+            fieldConditionArr[i][fieldConditionIndex[i]] = 'field-'+i+"-condition-"+fieldConditionIndex[i];
             fieldConditionIndex[i]++;
         }
     }
@@ -207,9 +207,11 @@ function removeFiled(index) {
 function addFiledCondition(index) {
     if (typeof (fieldConditionIndex[index])== 'undefined'){
         fieldConditionIndex[index] = 0
+    }if (typeof (fieldConditionArr[index])== 'undefined') {
+        fieldConditionArr[index] = []
     }
     $(".filed-condition-"+index).append(fieldConditionTemp(index,fieldConditionIndex[index]))
-    fieldConditionArr[index][fieldConditionIndex] = 'field-'+index+"-condition-"+fieldConditionIndex[index];
+    fieldConditionArr[index][fieldConditionIndex[index]] = 'field-'+index+"-condition-"+fieldConditionIndex[index];
     fieldConditionIndex[index]++;
 }
 

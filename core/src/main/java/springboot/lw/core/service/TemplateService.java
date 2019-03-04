@@ -65,7 +65,7 @@ public interface TemplateService {
      */
     boolean addResult(TemplateResult result);
 
-
+    boolean updateResult(TemplateResult result);
     /**
      * 获取某个结果
      * @param hid

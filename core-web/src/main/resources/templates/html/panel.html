@@ -53,6 +53,12 @@
 
             </div>
         </div>
+
+        <div class="row"  style="position: relative;" th:if="${templateType=='result'}">
+            <div th:include="result :: copy" >
+
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>

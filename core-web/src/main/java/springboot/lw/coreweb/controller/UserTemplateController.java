@@ -1,6 +1,8 @@
 package springboot.lw.coreweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import springboot.lw.core.model.Template;
 import springboot.lw.core.model.TemplateHistory;
+import springboot.lw.core.model.TemplateResult;
 import springboot.lw.core.model.User;
 import springboot.lw.core.service.TemplateService;
 import springboot.lw.core.service.UserService;
@@ -155,7 +158,30 @@ public class UserTemplateController extends BaseController {
     public String getHistory(@RequestParam("account") String account,
                              @RequestParam("tid") String tid,
                              @RequestParam("hid") String hid, Model model){
-        model.addAttribute("templateType","user-main");
+        if(StringUtils.isEmpty(hid)){
+            return "404";
+        }
+        try {
+            TemplateResult result = templateService.getResultById(Long.parseLong(hid));
+            if (result==null){
+                model.addAttribute("templateType","result");
+                model.addAttribute("titles",new ArrayList());
+                model.addAttribute("list",new ArrayList());
+            }else {
+                List<Map> res = JSON.parseObject(result.getResult(),new TypeReference<List<Map>>(){}.getType());
+                if (res!=null&&res.size()>0){
+                    model.addAttribute("templateType","result");
+                    model.addAttribute("titles",res.get(0).keySet());
+                    model.addAttribute("list",res);
+                }else {
+                    model.addAttribute("templateType","result");
+                    model.addAttribute("titles",new ArrayList());
+                    model.addAttribute("list",new ArrayList());
+                }
+            }
+        }catch (Exception e){
+            log.error(e);
+        }
         return "panel";
     }
 

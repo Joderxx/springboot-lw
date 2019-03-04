@@ -18,8 +18,11 @@
     </sql>
 
     <insert id="add">
-        insert into template_result(result) values (#{result})
+        insert into template_result(hid,result) values (#{hid}, #{result})
     </insert>
+    <update id="update">
+        update template_result set result=#{result} where hid=#{hid}
+    </update>
 
     <select id="getById" resultType="springboot.lw.core.model.TemplateResult">
         select result from template_result where hid=#{hid}
