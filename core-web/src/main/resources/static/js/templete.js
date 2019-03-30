@@ -148,8 +148,6 @@ function commonConditionTemp(index) {
         "                                                                <option value=\"ID\" selected>根据id过滤</option>\n" +
         "                                                                <option value=\"CLASS\">根据class样式过滤</option>\n" +
         "                                                                <option value=\"TAG\">根据tag标签过滤</option>\n" +
-        "                                                                <option value=\"REGEX\">根据正则表达式过滤</option>\n" +
-        "                                                                <option value=\"XPATH\">根据Xpath过滤</option>\n" +
         "                                                            </select>\n" +
         "                                                        </div>\n" +
         "                                                    </div>\n" +
@@ -231,8 +229,6 @@ function fieldConditionTemp(index1,index2) {
         "                                                                <option value=\"ID\" selected>根据id过滤</option>\n" +
         "                                                                <option value=\"CLASS\">根据class样式过滤</option>\n" +
         "                                                                <option value=\"TAG\">根据tag标签过滤</option>\n" +
-        "                                                                <option value=\"REGEX\">根据正则表达式过滤</option>\n" +
-        "                                                                <option value=\"XPATH\">根据Xpath过滤</option>\n" +
         "                                                            </select>\n" +
         "                                                        </div>\n" +
         "                                                    </div>\n" +

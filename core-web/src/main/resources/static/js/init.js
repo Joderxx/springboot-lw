@@ -71,6 +71,7 @@ $(function () {
             data: data,
             success: function (data) {
                 $("body").html(data)
+                window.location.reload()
             }
         })
     });

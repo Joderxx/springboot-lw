@@ -3,7 +3,6 @@ package springboot.lw.coreweb.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springboot.lw.core.model.Template;
 import springboot.lw.core.model.TemplateHistory;
 import springboot.lw.core.model.request.RequestData;
-import springboot.lw.core.service.Excute;
+import springboot.lw.core.service.Execute;
 import springboot.lw.core.service.TemplateService;
 
 /**
@@ -23,7 +22,7 @@ import springboot.lw.core.service.TemplateService;
 public class DealController extends BaseController{
 
     @Reference
-    private Excute excute;
+    private Execute execute;
     @Reference
     private TemplateService templateService;
 
@@ -58,7 +57,7 @@ public class DealController extends BaseController{
                 history.setModifiedTime(time);
                 templateService.addHistory(history);
             }
-            excute.excute(requestData,template.getTid(),history.getHid());
+            execute.execute(requestData,template.getTid(),history.getHid());
         } catch (Exception e) {
             return "500";
         }

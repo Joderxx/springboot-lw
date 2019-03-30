@@ -2,6 +2,9 @@ package springboot.lw.core.mapper.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import springboot.lw.core.model.Template;
 
@@ -20,6 +23,7 @@ public interface TemplateMapper {
      * @param template
      * @return
      */
+    @CachePut(value = "template",key = "#template.tid")
     int add(Template template);
 
     /**
@@ -28,6 +32,7 @@ public interface TemplateMapper {
      * @param tid
      * @return
      */
+    @CacheEvict(value = "template",key = "#tid")
     int deleteById(@Param("userId") long userId, @Param("tid") long tid);
 
     /**
@@ -42,6 +47,7 @@ public interface TemplateMapper {
      * @param tid
      * @return
      */
+    @Cacheable(value = "template",key = "#tid")
     Template getById(long tid);
 
     Map<String,Object> getDetailById(long tid);

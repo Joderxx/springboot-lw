@@ -27,7 +27,7 @@
 
     </update>
     <update id="updatePassword">
-      update user set password=#{newPassword} where id-#{userId} and password=#{oldPassword}
+      update user set password=#{newPassword} where id=#{userId} and password=#{oldPassword}
     </update>
     <update id="updateUsername">
       update user set username=#{newName} where id=#{userId}

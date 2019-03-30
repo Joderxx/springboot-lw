@@ -12,6 +12,7 @@ import springboot.lw.core.model.Template;
 import springboot.lw.core.model.TemplateHistory;
 import springboot.lw.core.model.TemplateResult;
 import springboot.lw.core.model.User;
+import springboot.lw.core.model.request.RequestData;
 import springboot.lw.core.service.TemplateService;
 import springboot.lw.core.service.UserService;
 import springboot.lw.core.util.Md5Util;
@@ -54,6 +55,7 @@ public class UserTemplateController extends BaseController {
         template.setUser(user);
         templateService.saveTemplate(template);
         model.addAttribute("template",template);
+        model.addAttribute("requestData",new RequestData());
         model.addAttribute("templateType","user-operator");
         return "panel";
     }
